@@ -13,3 +13,4 @@ marc_to_solr/translation_maps/location_display.rb
 marc_to_solr/translation_maps/holding_library.rb
 /coverage
 /db/data.yml
+.DS_Store
