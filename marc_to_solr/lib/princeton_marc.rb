@@ -500,8 +500,8 @@ def process_holdings record
         holding_id = s_field.value
       elsif s_field.code == 'b'
         ## Location and Library aren't loading correctly with SCSB Records
-        holding['location'] ||= Traject::TranslationMap.new("locations", :default => "__passthrough__")[s_field.value]
-        holding['library'] ||= Traject::TranslationMap.new("location_display", :default => "__passthrough__")[s_field.value]
+        holding['location'] ||= Traject::TranslationMap.new("locations")[s_field.value]
+        holding['library'] ||= Traject::TranslationMap.new("location_display")[s_field.value]
         holding['location_code'] ||= s_field.value
       elsif /[ckhij]/.match(s_field.code)
         holding['call_number'] ||= []
@@ -522,7 +522,7 @@ def process_holdings record
     end
     holding['call_number'] = holding['call_number'].join(' ') if holding['call_number']
     holding['call_number_browse'] = holding['call_number_browse'].join(' ') if holding['call_number_browse']
-    all_holdings[holding_id] = holding unless holding_id.nil?
+    all_holdings[holding_id] = holding unless holding_id.nil? or holding['location'].nil?
   end
   Traject::MarcExtractor.cached('866az').collect_matching_lines(record) do |field, spec, extractor|
     value = []
