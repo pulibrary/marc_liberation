@@ -3,6 +3,7 @@
 # Rails.root
 data_dir: 'data'
 records_per_file: 50000
+recap_dump_records_per_file: 5000
 test_records_per_file: 25
 dump_types:
 - label: 'Changed Records'

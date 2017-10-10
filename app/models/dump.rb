@@ -42,7 +42,11 @@ class Dump < ActiveRecord::Base
 
   private
   def dump_records(ids, dump_file_type)
-    slice_size = Rails.env.test? ? MARC_LIBERATION_CONFIG['test_records_per_file'] : MARC_LIBERATION_CONFIG['records_per_file']
+    slice_size = if dump_file_type.constant == 'RECAP_RECORDS'
+      MARC_LIBERATION_CONFIG['recap_dump_records_per_file']
+    else
+      Rails.env.test? ? MARC_LIBERATION_CONFIG['test_records_per_file'] : MARC_LIBERATION_CONFIG['records_per_file']
+    end
     ids.each_slice(slice_size).each do |id_slice|
       df = DumpFile.create(dump_file_type: dump_file_type)
       self.dump_files << df
@@ -54,6 +58,10 @@ class Dump < ActiveRecord::Base
       end
       sleep 1
     end
+  end
+
+  def recap_record_coount
+
   end
 
   class << self
@@ -160,7 +168,7 @@ class Dump < ActiveRecord::Base
           VoyagerHelpers::SyncFu.holding_ids_to_file(dump_file.path)
         elsif type == 'RECAP_RECORDS'
           if last_recap_dump.nil?
-            last_dump_date = Time.now - 5.days
+            last_dump_date = Time.now - 1.days
           else
             last_dump_date = last_recap_dump.updated_at
           end
