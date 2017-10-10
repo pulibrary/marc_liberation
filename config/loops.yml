@@ -5,49 +5,49 @@ loops:
     host: master.mq.scsb.recaplib.org
     port: 61613
     queue_name: /topic/PUL.RequestT
-  # scsb_request_backup_queue:
-  #   loop_name: scsb_request_queue
-  #   workers_number: 1
-  #   logger: log/queue.log
-  #   host: 34.224.248.211
-  #   port: 61613
-  #   queue_name: /topic/PUL.RequestT
+  scsb_request_backup_queue:
+    loop_name: scsb_request_queue
+    workers_number: 1
+    logger: log/queue.log
+    host: slave.mq.scsb.recaplib.org
+    port: 61613
+    queue_name: /topic/PUL.RequestT
   scsb_recall_queue:
     workers_number: 2
     logger: log/queue.log
     host: master.mq.scsb.recaplib.org
     port: 61613
     queue_name: /topic/PUL.RecallT
-  # scsb_recall_backup_queue:
-  #   loop_name: scsb_recall_queue
-  #   workers_number: 1
-  #   logger: log/queue.log
-  #   host: 34.224.248.211
-  #   port: 61613
-  #   queue_name: /topic/PUL.RecallT
+  scsb_recall_backup_queue:
+    loop_name: scsb_recall_queue
+    workers_number: 1
+    logger: log/queue.log
+    host: slave.mq.scsb.recaplib.org
+    port: 61613
+    queue_name: /topic/PUL.RecallT
   scsb_edd_queue:
     workers_number: 2
     logger: log/queue.log
     host: master.mq.scsb.recaplib.org
     port: 61613
     queue_name: /topic/PUL.EDDT
-  # scsb_edd_backup_queue:
-  #   loop_name: scsb_edd_queue
-  #   workers_number: 1
-  #   logger: log/queue.log
-  #   host: 34.224.248.211
-  #   port: 61613
-  #   queue_name: /topic/PUL.EDDT
+  scsb_edd_backup_queue:
+    loop_name: scsb_edd_queue
+    workers_number: 1
+    logger: log/queue.log
+    host: slave.mq.scsb.recaplib.org
+    port: 61613
+    queue_name: /topic/PUL.EDDT
   scsb_export_queue:
     workers_number: 1
     logger: log/queue.log
     host: master.mq.scsb.recaplib.org
     port: 61613
     queue_name: /topic/PUL.ExportProcessCompletion
-  # scsb_export_backup_queue:
-  #   loop_name: scsb_export_queue
-  #   workers_number: 1
-  #   logger: log/queue.log
-  #   host: 34.224.248.211
-  #   port: 61613
-  #   queue_name: /topic/PUL.ExportProcessCompletion
+  scsb_export_backup_queue:
+    loop_name: scsb_export_queue
+    workers_number: 1
+    logger: log/queue.log
+    host: slave.mq.scsb.recaplib.org
+    port: 61613
+    queue_name: /topic/PUL.ExportProcessCompletion
