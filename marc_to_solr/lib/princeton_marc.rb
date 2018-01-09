@@ -273,7 +273,8 @@ def set_pub_created(record)
     pub_info += c_pub_info unless c_pub_info.nil?
 
     # Append the terminal publication date
-    pub_info += record.end_date_from_008 if !c_pub_info.nil? && /\d{4}\-$/.match(c_pub_info)
+    terminal_pub_date = record.end_date_from_008 if !c_pub_info.nil? && /\d{4}\-$/.match(c_pub_info) 
+    pub_info += terminal_pub_date if terminal_pub_date
 
     value << pub_info unless pub_info.empty?
   end
