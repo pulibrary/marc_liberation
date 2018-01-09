@@ -5,7 +5,10 @@ require 'rsolr'
 require 'time'
 require './lib/index_functions'
 
-conn = Faraday.new(url: 'https://bibdata.princeton.edu') do |faraday|
+default_bibdata_url = 'https://bibdata.princeton.edu'
+bibdata_url = ENV['BIBDATA_URL'] || default_bibdata_url
+
+conn = Faraday.new(url: bibdata_url) do |faraday|
   faraday.request  :url_encoded             # form-encode POST params
   faraday.response :logger                  # log requests to STDOUT
   faraday.adapter  Faraday.default_adapter  # make requests with Net::HTTP
