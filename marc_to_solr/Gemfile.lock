@@ -18,6 +18,7 @@ GEM
     hashie (3.4.4)
     httpclient (2.8.0)
     library_stdnums (1.4.1)
+    lightly (0.2.1)
     marc (1.0.0)
       scrub_rb (>= 1.0.1, < 2)
       unf
@@ -78,10 +79,11 @@ PLATFORMS
 DEPENDENCIES
   faraday
   library_stdnums
+  lightly
   rsolr
   rspec (~> 3.2)
   stringex!
   traject (~> 2.0)
 
 BUNDLED WITH
-   1.14.6
+   1.16.0.pre.3

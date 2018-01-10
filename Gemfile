@@ -23,6 +23,7 @@ gem 'multi_json', '~> 1.10.1'
 gem 'oj'
 gem 'gyoku', '~> 1.0'
 gem 'rubyzip', '>= 1.0.0'
+gem 'lightly'
 
 group :development do
   gem 'spring'

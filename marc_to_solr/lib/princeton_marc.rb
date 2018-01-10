@@ -1,8 +1,13 @@
 # encoding: UTF-8
 require 'library_stdnums'
 require 'uri'
-require 'faraday'
-require 'faraday_middleware'
+require 'lightly'
+require_relative './cache_adapter'
+require_relative './cache_map'
+require_relative './composite_cache_map'
+require_relative './cache_manager'
+require_relative './uri_ark'
+require_relative './orangelight_url_builder'
 
 module MARC
   class Record
@@ -343,194 +348,23 @@ def oclc_normalize oclc, opts = {prefix: false}
   end
 end
 
-# Cached mapping of ARKs to Bib IDs
-# Retrieves and stores paginated Solr responses containing the ARK's and BibID's
-class CacheMap
-  attr_reader :values
+# Construct (or retrieve) the cache manager service
+# @return [CacheManager] the cache manager service
+def build_cache_manager(dir_path: dir_path)
+  return @cache_manager unless @cache_manager.nil?
 
-  # Constructor
-  # @param host [String] the host for the Blacklight endpoint
-  # @param path [String] the path for the Blacklight endpoint
-  # @param rows [Integer] the number of rows for each Solr response
-  # @param logger [IO] the logging device
-  def initialize(host:, path: '/catalog.json', rows: 1000000, logger: STDOUT)
-    @host = host
-    @path = path
-    @rows = rows
-    @logger = logger
-    @values = {}
+  lightly = Lightly.new(dir: dir_path, life: 0, hash: false)
+  cache_adapter = CacheAdapter.new(service: lightly)
 
-    seed!
-  end
-
-  # Seed the cache
-  # @param page [Integer] the page number at which to start the caching
-  def seed!(page: 1)
-    response = query(page: page)
-    return if response.empty?
-
-    pages = response.fetch('pages')
-
-    cache_page(response)
-
-    if pages.fetch('last_page?') == false
-      seed!(page: page + 1)
-    end
-  end
-
-  private
-
-    # Cache a page
-    # @param page [Hash] Solr response page
-    def cache_page(page)
-      docs = page.fetch('docs')
-      docs.each do |doc|
-        arks = doc.fetch('identifier_ssim', [])
-        bib_ids = doc.fetch('source_metadata_identifier_ssim', [])
-
-        ark = arks.first
-        bib_id = bib_ids.first
-
-        @values[ark] = bib_id
-      end
-    end
-
-    # Query the service using the endpoint
-    # @param [Integer] the page parameter for the query
-    def query(page: 1)
-      begin
-        url = URI::HTTPS.build(host: @host, path: @path, query: "q=&rows=#{@rows}&page=#{page}&f[identifier_tesim][]=ark")
-        http_response = Faraday.get(url)
-
-        values = JSON.parse(http_response.body)
-        values.fetch('response')
-      rescue StandardError => err
-        @logger.error "Failed to seed the ARK cached from the repository: #{err}"
-        {}
-      end
-    end
-end
-
-# Composite of CacheMaps
-# Provides the ability to build a cache from multiple Solr endpoints
-class CompositeCacheMap
-  # Constructor
-  # @param cache_maps [Array<CacheMap>] the CacheMap instances for each endpoint
-  def initialize(cache_maps:)
-    @cache_maps = cache_maps
-  end
-
-  # Seed the cache
-  # @param page [Integer] the page number at which to start the caching
-  def seed!(page: 1)
-    @cache_maps.each { |cache_map| cache_map.seed! }
-  end
-
-  # Retrieve the cached values
-  # @return [Hash] the values cached from the Solr response
-  def values
-    @cache_maps.map { |cache_map| cache_map.values }.reduce(&:merge)
-  end
-end
-
-# Retrieve the stored (or seed) the cache for the ARK's in Figgy
-# @return [CacheMap]
-def figgy_ark_cache
-  CacheMap.new(host: "figgy.princeton.edu", logger: logger)
-end
-
-# Retrieve the stored (or seed) the cache for the ARK's in Plum
-# @return [CacheMap]
-def plum_ark_cache
-  CacheMap.new(host: "plum.princeton.edu", logger: logger)
-end
-
-# Retrieve the stored (or seed) the cache for the ARK's in all repositories
-# @return [CompositeCacheMap]
-def ark_cache
-  @cache ||= CompositeCacheMap.new(cache_maps: [figgy_ark_cache, plum_ark_cache])
-  @cache.values
-end
-
-# Class modeling the ARK standard for URL's
-# @see https://tools.ietf.org/html/draft-kunze-ark-18
-class URI::ARK < URI::Generic
-  attr_reader :nmah, :naan, :name
-
-  # Constructs an ARK from a URL
-  # @param url [URI::Generic] the URL for the ARK resource
-  # @return [URI::ARK] the ARK
-  def self.parse(url:)
-    build(
-      scheme: url.scheme,
-      userinfo: url.userinfo,
-      host: url.host,
-      port: url.port,
-      registry: url.registry,
-      path: url.path,
-      opaque: url.opaque,
-      query: url.query,
-      fragment: url.fragment
-    )
-  end
-
-  # Validates whether or not a URL is an ARK URL
-  # @param uri [URI::Generic] a URL
-  # @return [TrueClass, FalseClass]
-  def self.ark?(url:)
-    m = /\:\/\/(.+)\/ark\:\/(.+)\/(.+)\/?/.match(url.to_s)
-    !!m
-  end
-
-  # Constructor
-  def initialize(*arg)
-    super(*arg)
-    extract_components!
-  end
-
-  private
-    # Extract the components from the ARK URL into member variables
-    def extract_components!
-      raise StandardError, "Invalid ARK URL using: #{self.to_s}" unless self.class.ark?(url: self)
-      m = /\:\/\/(.+)\/ark\:\/(.+)\/(.+)\/?/.match(self.to_s)
-
-      @nmah = m[1]
-      @naan = m[2]
-      @name = m[3]
-    end
-end
-
-# Class for building instances of URI::HTTPS for Orangelight URL's
-class OrangelightUrlBuilder
-  # Constructor
-  # @param ark_cache [CompositeCacheMap] composite of caches for mapping ARK's to BibID's
-  # @param service_host [String] the host name for the Orangelight instance
-  # @todo Resolve the service_host default parameter properly (please @see https://github.com/pulibrary/marc_liberation/issues/313)
-  def initialize(ark_cache:, service_host: 'pulsearch.princeton.edu')
-    @ark_cache = ark_cache
-    @service_host = service_host
-  end
-
-  # Generates an Orangelight URL using an ARK
-  # @param ark [URI::ARK] the archival resource key
-  # @return URI::HTTPS the URL
-  def build(url:)
-    if url.is_a? URI::ARK
-      cached_bib_id = @ark_cache.fetch("ark:/#{url.naan}/#{url.name}", nil)
-    else
-      cached_bib_id = @ark_cache.fetch(url.to_s, nil)
-    end
-    return if cached_bib_id.nil?
-
-    URI::HTTPS.build(host: @service_host, path: "/catalog/#{cached_bib_id}")
-  end
+  CacheManager.initialize(cache: cache_adapter, logger: logger)
+  @cache_manager = CacheManager.current
 end
 
 # returns hash of links ($u) (key),
 # anchor text ($y, $3, hostname), and additional labels ($z) (array value)
 # @param [MARC::Record] the MARC record being parsed
 # @return [Hash] the values used to construct the links
-def electronic_access_links(record)
+def electronic_access_links(record, dir_path)
   links = {}
   holding_856s = {}
 
@@ -579,7 +413,8 @@ def electronic_access_links(record)
         # Extract the ARK from the URL (if the URL is indeed an ARK)
         url = URI::ARK.parse(url: url) if URI::ARK.ark?(url: url)
         # ...and attempt to build an Orangelight URL from the (cached) mappings exposed by the repositories
-        builder = OrangelightUrlBuilder.new(ark_cache: ark_cache)
+        cache_manager = build_cache_manager(dir_path: dir_path)
+        builder = OrangelightUrlBuilder.new(ark_cache: cache_manager.ark_cache)
         orangelight_url = builder.build(url: url)
         url_key = orangelight_url.to_s unless orangelight_url.nil?
       end

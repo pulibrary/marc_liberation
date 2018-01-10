@@ -11,6 +11,8 @@ gem 'faraday'
 
 gem 'library_stdnums'
 
+gem 'lightly'
+
 group :development do
 	# rspec
 	gem 'rspec', '~> 3.2'

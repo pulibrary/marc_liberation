@@ -171,6 +171,7 @@ GEM
       railties (>= 3.2, < 6)
     json (1.8.6)
     library_stdnums (1.6.0)
+    lightly (0.2.1)
     listen (2.10.1)
       celluloid (~> 0.16.0)
       rb-fsevent (>= 0.9.3)
@@ -405,6 +406,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   library_stdnums
+  lightly
   locations!
   loops!
   marc (~> 1.0)

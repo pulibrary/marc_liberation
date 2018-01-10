@@ -22,13 +22,12 @@ settings do
   provide "marc4j_reader.source_encoding", "UTF-8"
   provide "log.error_file", "/tmp/error.log"
   provide "allow_duplicate_values",  false
+  provide "cache_dir", ENV['ARK_CACHE_PATH'] || "tmp/ark_cache"
 end
 
 update_locations unless ENV['RAILS_ENV']
 
 $LOAD_PATH.unshift(File.expand_path('../../', __FILE__)) # include marc_to_solr directory so local translation_maps can be loaded
-
-
 
 to_field 'id', extract_marc('001', :first => true)
 # for scsb local system id
@@ -231,7 +230,7 @@ to_field 'medium_support_display', extract_marc('340')
 #    $z additional display text
 #    display host name if missing $y or $3
 to_field 'electronic_access_1display' do |record, accumulator|
-  links = electronic_access_links(record)
+  links = electronic_access_links(record, settings['cache_dir'])
   accumulator[0] = links.to_json.to_s unless links == {}
 end
 

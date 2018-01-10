@@ -1,18 +1,12 @@
 # encoding: UTF-8
 require 'json'
-require 'traject'
 require_relative '../../lib/princeton_marc'
+require 'traject'
 require 'library_stdnums'
 
 $LOAD_PATH.unshift('.') # include current directory so local translation_maps can be loaded
 
 describe 'From princeton_marc.rb' do
-  before(:all) do
-    c=File.expand_path('../../../lib/traject_config.rb',__FILE__)
-    @indexer = Traject::Indexer.new
-    @indexer.load_config_file(c)
-  end
-
   let(:config) { File.expand_path('../../../lib/traject_config.rb', __FILE__) }
   let(:indexer) { Traject::Indexer.new }
 
@@ -175,13 +169,13 @@ describe 'From princeton_marc.rb' do
   end
 
   before do
-    indexer.load_config_file(config)
     stub_request(:get, "https://figgy.princeton.edu/catalog.json?f%5Bidentifier_tesim%5D%5B0%5D=ark&page=1&q=&rows=1000000")
     stub_request(:get, "https://plum.princeton.edu/catalog.json?f%5Bidentifier_tesim%5D%5B0%5D=ark&page=1&q=&rows=1000000")
+    indexer.load_config_file(config)
   end
 
   describe '#electronic_access_links' do
-    subject(:links) { electronic_access_links(marc_record) }
+    subject(:links) { electronic_access_links(marc_record, 'tmp/ark_cache_test') }
 
     let(:url) { 'https://domain.edu/test-resource' }
     let(:l001) { { '001' => '4609321' } }
