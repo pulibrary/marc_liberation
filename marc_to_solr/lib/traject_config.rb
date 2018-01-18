@@ -25,7 +25,7 @@ settings do
   provide "cache_dir", ENV['ARK_CACHE_PATH'] || "tmp/ark_cache"
 end
 
-update_locations unless ENV['RAILS_ENV'] == 'CI' || ENV['RAILS_ENV'] == 'test'
+# update_locations unless ENV['RAILS_ENV'] == 'CI' || ENV['RAILS_ENV'] == 'test'
 
 $LOAD_PATH.unshift(File.expand_path('../../', __FILE__)) # include marc_to_solr directory so local translation_maps can be loaded
 
