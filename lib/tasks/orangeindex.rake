@@ -90,7 +90,7 @@ namespace :liberate do
     url_arg = ENV['SET_URL'] ? "-u #{ENV['SET_URL']}" : ''
     if ENV['BIB']
       resp = conn.get "/bibliographic/#{ENV['BIB']}"
-      File.write('./tmp/tmp.xml', resp.body)
+      File.binwrite('./tmp/tmp.xml', resp.body)
       sh "traject -c marc_to_solr/lib/traject_config.rb ./tmp/tmp.xml #{url_arg} #{commit}"
     else
       puts 'Please provide a BIB argument (BIB=####)'
