@@ -36,7 +36,7 @@ class Event < ActiveRecord::Base
       delete_ids << Dump
         .where(dump_type: DumpType.find_by(constant: 'BIB_IDS'))
         .order("id DESC").offset(8).pluck(:event_id)
-      delete_ids.flatten!
+      delete_ids.flatten!.compact!
       Event.destroy(delete_ids)
     end
 

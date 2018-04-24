@@ -30,9 +30,9 @@ class Dump < ActiveRecord::Base
     dump_records(ids, dump_file_type)
   end
 
-  def dump_bib_records(bib_ids)
+  def dump_bib_records(bib_ids, reindex=false)
     dump_file_type = DumpFileType.find_by(constant: 'BIB_RECORDS')
-    dump_records(bib_ids, dump_file_type)
+    dump_records(bib_ids, dump_file_type, reindex)
   end
 
   def dump_updated_recap_records(updated_barcodes)
@@ -41,7 +41,9 @@ class Dump < ActiveRecord::Base
   end
 
   private
-  def dump_records(ids, dump_file_type)
+  # BibDumpJob by default will post to live Solr index
+  # If reindex is set to true, then post to Solr reindex core
+  def dump_records(ids, dump_file_type, reindex=false)
     slice_size = Rails.env.test? ? MARC_LIBERATION_CONFIG['test_records_per_file'] : MARC_LIBERATION_CONFIG['records_per_file']
     ids.each_slice(slice_size).each do |id_slice|
       df = DumpFile.create(dump_file_type: dump_file_type)
@@ -50,7 +52,7 @@ class Dump < ActiveRecord::Base
       if dump_file_type.constant == 'RECAP_RECORDS'
         RecapDumpJob.perform_later(id_slice, df.id)
       else
-        BibDumpJob.perform_later(id_slice, df.id)
+        BibDumpJob.perform_later(id_slice, df.id, reindex)
       end
       sleep 1
     end
@@ -111,7 +113,7 @@ class Dump < ActiveRecord::Base
         bib_path = bibs.dump_files.first.path
         system "awk '{print $1}' #{bib_path} > #{bib_path}.ids"
         bib_id_strings = File.readlines("#{bib_path}.ids").map &:strip
-        dump.dump_bib_records(bib_id_strings)
+        dump.dump_bib_records(bib_id_strings, true)
         bibs.dump_files.first.zip
         File.delete("#{bib_path}.ids")
         Event.delete_old_events if event.success == true

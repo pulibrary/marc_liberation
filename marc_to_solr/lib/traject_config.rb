@@ -15,7 +15,7 @@ extend Traject::Macros::Marc21Semantics
 extend Traject::Macros::MarcFormats
 
 settings do
-  provide "solr.url", "http://localhost:8983/solr/blacklight-core-development" # default
+  provide "solr.url", ENV['SOLR_URL'] || "http://localhost:8983/solr/blacklight-core-development" # default
   provide "solr.version", "4.10.0"
   provide "marc_source.type", "xml"
   provide "solr_writer.max_skipped", "50"
