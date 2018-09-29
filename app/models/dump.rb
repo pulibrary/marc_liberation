@@ -28,6 +28,11 @@ class Dump < ActiveRecord::Base
     dump_records(ids, dump_file_type)
   end
 
+  def dump_voyager_updates
+    dump_file_type = DumpFileType.find_by(constant: 'UPDATED_RECORDS')
+    dump_records(update_ids, dump_file_type)
+  end
+
   def dump_created_records
     ids = self.create_ids.map { |h| h[:id] }
     dump_file_type = DumpFileType.find_by(constant: 'NEW_RECORDS')
@@ -73,7 +78,26 @@ class Dump < ActiveRecord::Base
       dump_ids('PRINCETON_RECAP')
     end
 
+    def incremental_voyager_update
+      dump_type = 'CHANGED_RECORDS'
+      timestamp = incremental_update_timestamp(dump_type)
+      dump = nil
+      Event.record do |event|
+        updated_bibs = VoyagerHelpers::Liberator.get_updated_bibs(timestamp.to_s)
+        dump = Dump.create(dump_type: DumpType.find_by(constant: dump_type))
+        dump.event = event
+        dump.create_ids = []
+        dump.delete_ids = []
+        dump.update_ids = updated_bibs
+        dump.save
+        dump.dump_voyager_updates
+      end
+      dump
+    end
+
     def diff_since_last
+      dump_type = 'CHANGED_RECORDS'
+      timestamp = incremental_update_timestamp(dump_type)
       dump = nil
       Event.record do |event|
         # Get the objects
@@ -91,17 +115,17 @@ class Dump < ActiveRecord::Base
         holdings_changes_report = VoyagerHelpers::SyncFu.compare_id_dumps(earlier_p, later_p)
 
         bib_changes_report.merge_in_holding_report(holdings_changes_report)
-        dump = Dump.create(dump_type: DumpType.find_by(constant: 'CHANGED_RECORDS'))
+        updated_bibs = VoyagerHelpers::Liberator.get_updated_bibs(timestamp.to_s)
+        dump = Dump.create(dump_type: DumpType.find_by(constant: dump_type))
         dump.event = event
-        dump.create_ids = bib_changes_report.created
-        dump.update_ids = bib_changes_report.updated
+        dump.create_ids = []
+        dump.update_ids = updated_bibs
         dump.delete_ids = bib_changes_report.deleted
         dump.save
         # Zip again
         [earlier_bib_dump, later_bib_dump, earlier_holding_dump,
           later_holding_dump].map { |d| d.dump_files.first.zip}
-        dump.dump_updated_records
-        dump.dump_created_records
+        dump.dump_voyager_updates
       end
       dump
     end
@@ -159,6 +183,17 @@ class Dump < ActiveRecord::Base
     def last_recap_dump
       dump_type = DumpType.where(constant: 'PRINCETON_RECAP')
       dump = Dump.where(dump_type: dump_type).joins(:event).where('events.success' => true).order('id desc').first
+    end
+
+    def incremental_update_timestamp(dump_type)
+      (ENV['TIMESTAMP'] || last_incremental_update(dump_type) || DateTime.now - 1).to_time
+    end
+
+    def last_incremental_update(dump_type)
+      last_dump = Dump.where(dump_type: DumpType.find_by(constant: dump_type)).last
+      if last_dump
+        last_dump.created_at
+      end
     end
 
     def dump_ids(type)
