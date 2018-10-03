@@ -45,20 +45,24 @@ class Dump < ActiveRecord::Base
   end
 
   private
-  def dump_records(ids, dump_file_type, priority = 'default')
-    slice_size = Rails.env.test? ? MARC_LIBERATION_CONFIG['test_records_per_file'] : MARC_LIBERATION_CONFIG['records_per_file']
-    ids.each_slice(slice_size).each do |id_slice|
-      df = DumpFile.create(dump_file_type: dump_file_type)
-      self.dump_files << df
-      self.save
-      if dump_file_type.constant == 'RECAP_RECORDS'
-        RecapDumpJob.perform_later(id_slice, df.id)
-      else
-        BibDumpJob.set(queue: priority).perform_later(id_slice, df.id)
+
+    # @param ids [Array<String>] the IDs for the records being exported
+    # @param dump_file_type [DumpFileType] type of records being exported
+    # @param priority [String] the priority of the export
+    def dump_records(ids, dump_file_type, priority = 'default')
+      slice_size = Rails.env.test? ? MARC_LIBERATION_CONFIG['test_records_per_file'] : MARC_LIBERATION_CONFIG['records_per_file']
+      ids.each_slice(slice_size).each do |id_slice|
+        df = DumpFile.create(dump_file_type: dump_file_type)
+        self.dump_files << df
+        self.save
+        if dump_file_type.constant == 'RECAP_RECORDS'
+          RecapDumpJob.perform_later(id_slice, df.id)
+        else
+          BibDumpJob.set(queue: priority).perform_later(id_slice, df.id)
+        end
+        sleep 1
       end
-      sleep 1
     end
-  end
 
   class << self
     def dump_bib_ids
@@ -138,60 +142,61 @@ class Dump < ActiveRecord::Base
 
     private
 
-    def last_two_bib_id_dumps
-      last_two_id_dumps('BIB_IDS')
-    end
-
-    def last_two_holding_id_dumps
-      last_two_id_dumps('HOLDING_IDS')
-    end
-
-    def last_two_id_dumps(dump_type)
-      dump_type = DumpType.where(constant: dump_type)
-      dumps = Dump.where(dump_type: dump_type).joins(:event).where('events.success' => true).order('id desc').limit(2).reverse
-    end
-
-    def last_bib_id_dump
-      dump_type = DumpType.where(constant: 'BIB_IDS')
-      dump = Dump.where(dump_type: dump_type).joins(:event).where('events.success' => true).order('id desc').first
-    end
-
-    def last_recap_dump
-      dump_type = DumpType.where(constant: 'PRINCETON_RECAP')
-      dump = Dump.where(dump_type: dump_type).joins(:event).where('events.success' => true).order('id desc').first
-    end
-
-    def dump_ids(type)
-      dump = nil
-      Event.record do |event|
-        dump = Dump.create(dump_type: DumpType.find_by(constant: type))
-        dump.event = event
-        dump_file = DumpFile.create(dump: dump, dump_file_type: DumpFileType.find_by(constant: type)) unless type == 'PRINCETON_RECAP'
-        if type == 'BIB_IDS'
-          VoyagerHelpers::SyncFu.bib_ids_to_file(dump_file.path)
-        elsif type == 'HOLDING_IDS'
-          VoyagerHelpers::SyncFu.holding_ids_to_file(dump_file.path)
-        elsif type == 'PRINCETON_RECAP'
-          if last_recap_dump.nil?
-            last_dump_date = Time.now - 1.day
-          else
-            last_dump_date = last_recap_dump.updated_at
-          end
-          barcodes = VoyagerHelpers::SyncFu.recap_barcodes_since(last_dump_date)
-          dump.update_ids = barcodes
-          dump.save
-          dump.dump_updated_recap_records(barcodes)
-        else
-          raise 'Unrecognized DumpType'
-        end
-        unless type == 'PRINCETON_RECAP'
-          dump_file.save
-          dump_file.zip
-          dump.dump_files << dump_file
-        end
-        dump.save
+      def last_two_bib_id_dumps
+        last_two_id_dumps('BIB_IDS')
       end
-      dump
-    end
+
+      def last_two_holding_id_dumps
+        last_two_id_dumps('HOLDING_IDS')
+      end
+
+      def last_two_id_dumps(dump_type)
+        dump_type = DumpType.where(constant: dump_type)
+        dumps = Dump.where(dump_type: dump_type).joins(:event).where('events.success' => true).order('id desc').limit(2).reverse
+      end
+
+      def last_bib_id_dump
+        dump_type = DumpType.where(constant: 'BIB_IDS')
+        dump = Dump.where(dump_type: dump_type).joins(:event).where('events.success' => true).order('id desc').first
+      end
+
+      def last_recap_dump
+        dump_type = DumpType.where(constant: 'PRINCETON_RECAP')
+        dump = Dump.where(dump_type: dump_type).joins(:event).where('events.success' => true).order('id desc').first
+      end
+
+      def dump_ids(type)
+        dump = nil
+        Event.record do |event|
+
+          dump = Dump.create(dump_type: DumpType.find_by(constant: type))
+          dump.event = event
+          dump_file = DumpFile.create(dump: dump, dump_file_type: DumpFileType.find_by(constant: type)) unless type == 'PRINCETON_RECAP'
+          if type == 'BIB_IDS'
+            VoyagerHelpers::SyncFu.bib_ids_to_file(dump_file.path)
+          elsif type == 'HOLDING_IDS'
+            VoyagerHelpers::SyncFu.holding_ids_to_file(dump_file.path)
+          elsif type == 'PRINCETON_RECAP'
+            if last_recap_dump.nil?
+              last_dump_date = Time.now - 1.day
+            else
+              last_dump_date = last_recap_dump.updated_at
+            end
+            barcodes = VoyagerHelpers::SyncFu.recap_barcodes_since(last_dump_date)
+            dump.update_ids = barcodes
+            dump.save
+            dump.dump_updated_recap_records(barcodes)
+          else
+            raise 'Unrecognized DumpType'
+          end
+          unless type == 'PRINCETON_RECAP'
+            dump_file.save
+            dump_file.zip
+            dump.dump_files << dump_file
+          end
+          dump.save
+        end
+        dump
+      end
   end # class << self
 end

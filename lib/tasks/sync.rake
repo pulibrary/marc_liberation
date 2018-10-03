@@ -21,5 +21,4 @@ namespace :marc_liberation do
   task recap_dump: :environment do
     Dump.dump_recap_records
   end
-
 end
