@@ -131,7 +131,12 @@ namespace :liberate do
     end
 
     new_events.each do |event|
-      dump_response = Faraday.get(event['dump_url'])
+      begin
+        dump_response = Faraday.get(event['dump_url'])
+      rescue Faraday::ClientError => client_error
+        Rails.logger.error "Failed to retrieve the dump for the new event at: #{event['dump_url']}: #{client_error}"
+        next
+      end
       dump = JSON.parse(dump_response.body)
 
       IndexFunctions.update_records(dump).each do |marc_xml|

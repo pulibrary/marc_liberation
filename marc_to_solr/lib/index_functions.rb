@@ -14,18 +14,29 @@ module IndexFunctions
     return file_paths unless dump_files.key? 'updated_records'
     updated_records = dump_files['updated_records']
 
-    updated_records_file_response = Faraday.get(updated_records['dump_file'])
+    begin
+      updated_records_file_response = Faraday.get(updated_records['dump_file'])
+    rescue Faraday::ClientError => client_error
+      Rails.logger.error "Failed to retrieve the updated records dump file at: #{updated_records['dump_file']}: #{client_error}"
+      return file_paths
+    end
     updated_records_file = updated_records_file_response.body
 
     # updates
     updated_records.each_with_index do |update, i|
-      File.binwrite("/tmp/update_#{i}.gz", Faraday.get(updated_records_file)
+      File.binwrite("/tmp/update_#{i}.gz", updated_records_file
       file_paths << "/tmp/update_#{i}"
     end
 
     return file_paths unless dump_files.key? 'new_records'
     new_records = dump_files['new_records']
-    new_records_file_response = Faraday.get(new_records['dump_file'])
+
+    begin
+      new_records_file_response = Faraday.get(new_records['dump_file'])
+    rescue Faraday::ClientError => client_error
+      Rails.logger.error "Failed to retrieve the new records dump file at: #{new_records['dump_file']}: #{client_error}"
+      return file_paths
+    end
     new_records_file = new_records_file_response.body
 
     # new records
