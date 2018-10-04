@@ -85,6 +85,8 @@ describe Dump do
   end
 
   describe '.diff_since_last' do
+    let(:change_report) { instance_double(VoyagerHelpers::ChangeReport) }
+
     before do
       bib_ids_dump_type = DumpType.find_by(constant: 'BIB_IDS')
       holding_ids_dump_type = DumpType.find_by(constant: 'HOLDING_IDS')
@@ -93,26 +95,35 @@ describe Dump do
       event2 = Event.create(start: Time.now + 1, finish: Time.now + 2, success: true)
       dump1 = Dump.create(dump_type: bib_ids_dump_type, event: event1)
       dump2 = Dump.create(dump_type: bib_ids_dump_type, event: event2)
+      dump_file_type = DumpFileType.find_by(constant: 'BIB_IDS')
+      dump_file1 = DumpFile.create(dump: dump1, dump_file_type: dump_file_type)
+      dump_file2 = DumpFile.create(dump: dump2, dump_file_type: dump_file_type)
 
       event3 = Event.create(start: Time.now, finish: Time.now + 1, success: true)
       event4 = Event.create(start: Time.now + 1, finish: Time.now + 2, success: true)
       dump3 = Dump.create(dump_type: holding_ids_dump_type, event: event3)
       dump4 = Dump.create(dump_type: holding_ids_dump_type, event: event4)
+      dump_file_type = DumpFileType.find_by(constant: 'HOLDING_IDS')
+      dump_file1 = DumpFile.create(dump: dump3, dump_file_type: dump_file_type)
+      dump_file2 = DumpFile.create(dump: dump4, dump_file_type: dump_file_type)
+
+      allow(change_report).to receive(:merge_in_holding_report)
+      allow(change_report).to receive(:created).and_return(['test-created-id'])
+      allow(change_report).to receive(:updated).and_return(['test-updated-id'])
+      allow(change_report).to receive(:deleted).and_return(['test-deleted-id'])
+      allow(VoyagerHelpers::SyncFu).to receive(:compare_id_dumps).and_return(change_report)
 
       described_class.diff_since_last
     end
 
     it 'compares the Voyager record exports' do
-      event = Event.first
-      expect(event).not_to be_nil
-
-      dump = Dump.find_by(event: event)
+      dump_type = DumpType.find_by(constant: 'CHANGED_RECORDS')
+      dump = Dump.find_by(dump_type: dump_type)
       expect(dump).not_to be_nil
-      expect(dump.event).to eq(event)
 
-      expect(dump.create_ids).to eq([])
-      expect(dump.update_ids).to eq([])
-      expect(dump.delete_ids).to eq([])
+      expect(dump.create_ids).to eq(['test-created-id'])
+      expect(dump.update_ids).to eq(['test-updated-id'])
+      expect(dump.delete_ids).to eq(['test-deleted-id'])
     end
   end
 

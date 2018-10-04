@@ -82,31 +82,44 @@ class Dump < ActiveRecord::Base
       Event.record do |event|
         # Get the objects
         earlier_bib_dump, later_bib_dump = last_two_bib_id_dumps
-        return if earlier_bib_dump.empty? && later_bib_dump.empty?
+        return if earlier_bib_dump.nil? && later_bib_dump.nil?
 
         earlier_holding_dump, later_holding_dump = last_two_holding_id_dumps
-        return if earlier_holding_dump.empty? && later_holding_dump.empty?
+        return if earlier_holding_dump.nil? && later_holding_dump.nil?
+
+        dump_files = [
+          earlier_bib_dump,
+          later_bib_dump,
+          earlier_holding_dump,
+          later_holding_dump
+        ].map { |dump| dump.dump_files.first }.compact
 
         # Unzip them and get the paths
-        [earlier_bib_dump, later_bib_dump, earlier_holding_dump,
-          later_holding_dump].map { |d| d.dump_files.first.unzip }
+        dump_files.map(&:unzip)
 
-        earlier_p, later_p = earlier_bib_dump.dump_files.first.path, later_bib_dump.dump_files.first.path
-        bib_changes_report = VoyagerHelpers::SyncFu.compare_id_dumps(earlier_p, later_p)
+        earlier_bib_dump_file = earlier_bib_dump.dump_files.first
+        later_bib_dump_file = later_bib_dump.dump_files.first
+        return if earlier_bib_dump_file.nil? && later_bib_dump_file.nil?
 
-        earlier_p, later_p = earlier_holding_dump.dump_files.first.path, later_holding_dump.dump_files.first.path
-        holdings_changes_report = VoyagerHelpers::SyncFu.compare_id_dumps(earlier_p, later_p)
+        bib_changes_report = VoyagerHelpers::SyncFu.compare_id_dumps(earlier_bib_dump_file.path, later_bib_dump_file.path)
+
+        earlier_holding_dump_file = earlier_holding_dump.dump_files.first
+        later_holding_dump_file = later_holding_dump.dump_files.first
+        return if earlier_holding_dump_file.nil? && later_holding_dump_file.nil?
+
+        holdings_changes_report = VoyagerHelpers::SyncFu.compare_id_dumps(earlier_holding_dump_file.path, later_holding_dump_file.path)
 
         bib_changes_report.merge_in_holding_report(holdings_changes_report)
+
         dump = Dump.create(dump_type: DumpType.find_by(constant: 'CHANGED_RECORDS'))
         dump.event = event
         dump.create_ids = bib_changes_report.created
         dump.update_ids = bib_changes_report.updated
         dump.delete_ids = bib_changes_report.deleted
         dump.save
+
         # Zip again
-        [earlier_bib_dump, later_bib_dump, earlier_holding_dump,
-          later_holding_dump].map { |d| d.dump_files.first.zip}
+        dump_files.map(&:zip)
         dump.dump_updated_records
         dump.dump_created_records
       end
