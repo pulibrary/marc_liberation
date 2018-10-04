@@ -2,6 +2,11 @@ require 'rails_helper'
 
 describe Dump do
   subject(:dump) { described_class.new }
+  let(:mock_time) { Time.zone.at(1) }
+
+  before do
+    allow(Time).to receive(:now).at_least(:once).and_return(mock_time)
+  end
 
   describe '#dump_updated_records' do
     let(:updated_ids) do
@@ -18,12 +23,13 @@ describe Dump do
       dump.dump_updated_records
     end
 
-    it 'exports updated records' do
+    it 'exports updated records using the BibDumpJob and sets the last updated time' do
       dump_file = DumpFile.find_by(dump_file_type: dump_file_type)
       expect(dump_file).to be_a DumpFile
       expect(dump.dump_files).to eq [dump_file]
       expect(BibDumpJob).to have_received(:set).with(queue: priority)
       expect(BibDumpJob).to have_received(:perform_later).with(updated_ids, dump_file.id)
+      expect(dump_file.updated_at).to eq Time.now
     end
   end
 
@@ -42,12 +48,13 @@ describe Dump do
       dump.dump_created_records
     end
 
-    it 'exports created records' do
+    it 'exports created records using the BibDumpJob and sets the last updated time' do
       dump_file = DumpFile.find_by(dump_file_type: dump_file_type)
       expect(dump_file).to be_a DumpFile
       expect(dump.dump_files).to eq [dump_file]
       expect(BibDumpJob).to have_received(:set).with(queue: priority)
       expect(BibDumpJob).to have_received(:perform_later).with(created_ids, dump_file.id)
+      expect(dump_file.updated_at).to eq Time.now
     end
   end
 
@@ -66,12 +73,13 @@ describe Dump do
       dump.dump_bib_records(bib_ids)
     end
 
-    it 'exports voyager records' do
+    it 'exports voyager records using the BibDumpJob and sets the last updated time' do
       dump_file = DumpFile.find_by(dump_file_type: dump_file_type)
       expect(dump_file).to be_a DumpFile
       expect(dump.dump_files).to eq [dump_file]
       expect(BibDumpJob).to have_received(:set).with(queue: priority)
       expect(BibDumpJob).to have_received(:perform_later).with(bib_ids, dump_file.id)
+      expect(dump_file.updated_at).to eq Time.now
     end
   end
 
@@ -88,11 +96,12 @@ describe Dump do
       dump.dump_updated_recap_records(updated_barcodes)
     end
 
-    it 'exports updated records from ReCAP to a file using RecapDumpJob' do
+    it 'exports updated records from ReCAP using the RecapDumpJob and sets the last updated time' do
       dump_file = DumpFile.find_by(dump_file_type: dump_file_type)
       expect(dump_file).to be_a DumpFile
       expect(dump.dump_files).to eq [dump_file]
       expect(RecapDumpJob).to have_received(:perform_later).with(updated_barcodes, dump_file.id)
+      expect(dump_file.updated_at).to eq Time.now
     end
   end
 end
