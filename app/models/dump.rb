@@ -82,7 +82,10 @@ class Dump < ActiveRecord::Base
       Event.record do |event|
         # Get the objects
         earlier_bib_dump, later_bib_dump = last_two_bib_id_dumps
+        return if earlier_bib_dump.empty? && later_bib_dump.empty?
+
         earlier_holding_dump, later_holding_dump = last_two_holding_id_dumps
+        return if earlier_holding_dump.empty? && later_holding_dump.empty?
 
         # Unzip them and get the paths
         [earlier_bib_dump, later_bib_dump, earlier_holding_dump,
