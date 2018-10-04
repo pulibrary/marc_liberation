@@ -11,17 +11,29 @@ require_relative '../../marc_to_solr/lib/cache_manager'
 require_relative '../../marc_to_solr/lib/cache_map'
 require_relative '../../marc_to_solr/lib/composite_cache_map'
 
-default_bibdata_url = 'https://bibdata.princeton.edu'
-bibdata_url = ENV['BIBDATA_URL'] || default_bibdata_url
-
-conn = Faraday.new(url: bibdata_url) do |faraday|
-  faraday.request  :url_encoded             # form-encode POST params
-  faraday.response :logger                  # log requests to STDOUT
-  faraday.adapter  Faraday.default_adapter  # make requests with Net::HTTP
+def default_bibdata_url
+  'https://bibdata.princeton.edu'
 end
 
-default_solr_url = 'http://localhost:8983/solr/blacklight-core-development'
-commit = "-s solrj_writer.commit_on_close=true"
+def bibdata_url
+  ENV['BIBDATA_URL'] || default_bibdata_url
+end
+
+def bibdata_connection
+  @bibdata_connection ||= Faraday.new(url: bibdata_url) do |faraday|
+    faraday.request  :url_encoded             # form-encode POST params
+    faraday.response :logger                  # log requests to STDOUT
+    faraday.adapter  Faraday.default_adapter  # make requests with Net::HTTP
+  end
+end
+
+def default_solr_url
+  'http://localhost:8983/solr/blacklight-core-development'
+end
+
+def traject_commit_args
+  "-s solrj_writer.commit_on_close=true"
+end
 
 desc "Index MARC against SET_URL, set NO_COMMIT to 1 to skip commit"
 task :index do
@@ -31,7 +43,7 @@ task :index do
     if ENV['NO_COMMIT'] && ENV['NO_COMMIT'] == '1'
       sh "traject -c marc_to_solr/lib/traject_config.rb #{fixtures} #{url_arg}"
     else
-      sh "traject -c marc_to_solr/lib/traject_config.rb #{fixtures} #{url_arg} #{commit}"
+      sh "traject -c marc_to_solr/lib/traject_config.rb #{fixtures} #{url_arg} #{traject_commit_args}"
     end
   end
 end
@@ -95,9 +107,9 @@ namespace :liberate do
   task :bib do
     url_arg = ENV['SET_URL'] ? "-u #{ENV['SET_URL']}" : ''
     if ENV['BIB']
-      resp = conn.get "/bibliographic/#{ENV['BIB']}"
+      resp = bibdata_connection.get "/bibliographic/#{ENV['BIB']}"
       File.binwrite('./tmp/tmp.xml', resp.body)
-      sh "traject -c marc_to_solr/lib/traject_config.rb ./tmp/tmp.xml #{url_arg} #{commit}"
+      sh "traject -c marc_to_solr/lib/traject_config.rb ./tmp/tmp.xml #{url_arg} #{traject_commit_args}"
     else
       puts 'Please provide a BIB argument (BIB=####)'
     end
@@ -107,10 +119,21 @@ namespace :liberate do
   task :updates do
     solr_url = ENV['SET_URL'] || default_solr_url
     solr = IndexFunctions.rsolr_connection(solr_url)
-    resp = conn.get '/events.json'
-    comp_date = ENV['SET_DATE'] ? Date.parse(ENV['SET_DATE']) : (Date.today-1)
-    all_events = JSON.parse(resp.body).select {|e| Date.parse(e['start']) >= comp_date && e['success'] && e['dump_type'] == 'CHANGED_RECORDS'}.each do |event|
-      dump = JSON.parse(Faraday.get(event['dump_url']).body)
+
+    events_response = bibdata_connection.get '/events.json'
+    events = JSON.parse(events_response.body)
+
+    yesterday = Date.today - 1
+    last_updated_date = ENV['SET_DATE'] ? Date.parse(ENV['SET_DATE']) : yesterday
+
+    new_events = events.select do |e|
+      Date.parse(e['start']) >= last_updated_date && e['success'] && e['dump_type'] == 'CHANGED_RECORDS'
+    end
+
+    new_events.each do |event|
+      dump_response = Faraday.get(event['dump_url'])
+      dump = JSON.parse(dump_response.body)
+
       IndexFunctions.update_records(dump).each do |marc_xml|
         IndexFunctions.unzip(marc_xml)
         sh "traject -c marc_to_solr/lib/traject_config.rb #{marc_xml}.xml -u #{solr_url}; true"
@@ -126,7 +149,7 @@ namespace :liberate do
   task :on do
     solr_url = ENV['SET_URL'] || default_solr_url
     solr = IndexFunctions.rsolr_connection(solr_url)
-    resp = conn.get '/events.json'
+    resp = bibdata_connection.get '/events.json'
     if event = JSON.parse(resp.body).detect {|e| Date.parse(e['start']) == Date.parse(ENV['SET_DATE']) && e['success'] && e['dump_type'] == 'CHANGED_RECORDS'}
       dump = JSON.parse(Faraday.get(event['dump_url']).body)
       IndexFunctions.update_records(dump).each do |marc_xml|
@@ -144,17 +167,22 @@ namespace :liberate do
   task :latest do
     solr_url = ENV['SET_URL'] || default_solr_url
     solr = IndexFunctions.rsolr_connection(solr_url)
-    resp = conn.get '/events.json'
-    event = JSON.parse(resp.body).last
+
+    events_response = bibdata_connection.get '/events.json'
+    events = JSON.parse(events_response.body)
+    event = events.last
     if event['success'] && event['dump_type'] == 'CHANGED_RECORDS'
-      dump = JSON.parse(Faraday.get(event['dump_url']).body)
+      dump_response = Faraday.get(event['dump_url'])
+      dump = JSON.parse(dump_response.body)
+
       IndexFunctions.update_records(dump).each do |marc_xml|
         IndexFunctions.unzip(marc_xml)
         sh "traject -c marc_to_solr/lib/traject_config.rb #{marc_xml}.xml -u #{solr_url}; true"
         File.delete("#{marc_xml}.xml")
         File.delete("#{marc_xml}.gz")
       end
-      solr.delete_by_id(IndexFunctions.delete_ids(dump))
+      deleted_ids = IndexFunctions.delete_ids(dump)
+      solr.delete_by_id(deleted_ids)
     end
     solr.commit
   end
@@ -163,7 +191,7 @@ namespace :liberate do
   task :full do
     solr_url = ENV['SET_URL'] || default_solr_url
     solr = IndexFunctions.rsolr_connection(solr_url)
-    resp = conn.get '/events.json'
+    resp = bibdata_connection.get '/events.json'
     if event = JSON.parse(resp.body).select {|e| e['success'] && e['dump_type'] == 'ALL_RECORDS'}.last
       IndexFunctions.full_dump(event).each do |marc_xml|
         IndexFunctions.unzip(marc_xml)

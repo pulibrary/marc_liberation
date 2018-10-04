@@ -9,15 +9,28 @@ module IndexFunctions
   def self.update_records(dump)
     file_paths = []
 
+    return file_paths unless dump.key? 'files'
+    dump_files = dump['files']
+    return file_paths unless dump_files.key? 'updated_records'
+    updated_records = dump_files['updated_records']
+
+    updated_records_file_response = Faraday.get(updated_records['dump_file'])
+    updated_records_file = updated_records_file_response.body
+
     # updates
-    dump['files']['updated_records'].each_with_index do |update, i|
-      File.binwrite("/tmp/update_#{i}.gz", Faraday.get(update['dump_file']).body)
+    updated_records.each_with_index do |update, i|
+      File.binwrite("/tmp/update_#{i}.gz", Faraday.get(updated_records_file)
       file_paths << "/tmp/update_#{i}"
     end
 
+    return file_paths unless dump_files.key? 'new_records'
+    new_records = dump_files['new_records']
+    new_records_file_response = Faraday.get(new_records['dump_file'])
+    new_records_file = new_records_file_response.body
+
     # new records
-    dump['files']['new_records'].each_with_index do |new_records, i|
-      File.binwrite("/tmp/new_#{i}.gz", Faraday.get(new_records['dump_file']).body)
+    new_records.each_with_index do |new_records, i|
+      File.binwrite("/tmp/new_#{i}.gz", new_records_file)
       file_paths << "/tmp/new_#{i}"
     end
 
