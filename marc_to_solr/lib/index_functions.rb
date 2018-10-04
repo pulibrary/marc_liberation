@@ -23,8 +23,8 @@ module IndexFunctions
     updated_records_file = updated_records_file_response.body
 
     # updates
-    updated_records.each_with_index do |update, i|
-      File.binwrite("/tmp/update_#{i}.gz", updated_records_file
+    updated_records.each_with_index do |_update, i|
+      File.binwrite("/tmp/update_#{i}.gz", updated_records_file)
       file_paths << "/tmp/update_#{i}"
     end
 
@@ -40,7 +40,7 @@ module IndexFunctions
     new_records_file = new_records_file_response.body
 
     # new records
-    new_records.each_with_index do |new_records, i|
+    new_records.each_with_index do |_new_records, i|
       File.binwrite("/tmp/new_#{i}.gz", new_records_file)
       file_paths << "/tmp/new_#{i}"
     end

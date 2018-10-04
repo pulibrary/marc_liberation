@@ -30,7 +30,7 @@ describe Dump do
       expect(dump_type.constant).to eq 'BIB_IDS'
       expect(VoyagerHelpers::SyncFu).to have_received(:bib_ids_to_file).with('data/1')
       expect(dump.dump_files).to eq([dump_file])
-      expect(dump.updated_at).to eq(Time.now)
+      expect(dump.updated_at).to eq(Time.current)
     end
   end
 
@@ -56,14 +56,14 @@ describe Dump do
       expect(dump_type.constant).to eq 'HOLDING_IDS'
       expect(VoyagerHelpers::SyncFu).to have_received(:holding_ids_to_file).with('data/1')
       expect(dump.dump_files).to eq([dump_file])
-      expect(dump.updated_at).to eq(Time.now)
+      expect(dump.updated_at).to eq(Time.current)
     end
   end
 
   describe '.dump_recap_records' do
     subject(:dump) { described_class.dump_recap_records }
 
-    let(:yesterday) { Time.now - 1.day }
+    let(:yesterday) { Time.current - 1.day }
 
     before do
       allow(VoyagerHelpers::SyncFu).to receive(:recap_barcodes_since)
@@ -80,7 +80,7 @@ describe Dump do
       expect(dump_type.label).to eq 'Updated Princeton ReCAP Records'
       expect(dump_type.constant).to eq 'PRINCETON_RECAP'
       expect(VoyagerHelpers::SyncFu).to have_received(:recap_barcodes_since).with(yesterday)
-      expect(dump.updated_at).to eq(Time.now)
+      expect(dump.updated_at).to eq(Time.current)
     end
   end
 
@@ -91,21 +91,21 @@ describe Dump do
       bib_ids_dump_type = DumpType.find_by(constant: 'BIB_IDS')
       holding_ids_dump_type = DumpType.find_by(constant: 'HOLDING_IDS')
 
-      event1 = Event.create(start: Time.now, finish: Time.now + 1, success: true)
-      event2 = Event.create(start: Time.now + 1, finish: Time.now + 2, success: true)
-      dump1 = Dump.create(dump_type: bib_ids_dump_type, event: event1)
-      dump2 = Dump.create(dump_type: bib_ids_dump_type, event: event2)
+      event1 = Event.create(start: Time.current, finish: Time.current + 1, success: true)
+      event2 = Event.create(start: Time.current + 1, finish: Time.current + 2, success: true)
+      dump1 = described_class.create(dump_type: bib_ids_dump_type, event: event1)
+      dump2 = described_class.create(dump_type: bib_ids_dump_type, event: event2)
       dump_file_type = DumpFileType.find_by(constant: 'BIB_IDS')
-      dump_file1 = DumpFile.create(dump: dump1, dump_file_type: dump_file_type)
-      dump_file2 = DumpFile.create(dump: dump2, dump_file_type: dump_file_type)
+      DumpFile.create(dump: dump1, dump_file_type: dump_file_type)
+      DumpFile.create(dump: dump2, dump_file_type: dump_file_type)
 
-      event3 = Event.create(start: Time.now, finish: Time.now + 1, success: true)
-      event4 = Event.create(start: Time.now + 1, finish: Time.now + 2, success: true)
-      dump3 = Dump.create(dump_type: holding_ids_dump_type, event: event3)
-      dump4 = Dump.create(dump_type: holding_ids_dump_type, event: event4)
+      event3 = Event.create(start: Time.current, finish: Time.current + 1, success: true)
+      event4 = Event.create(start: Time.current + 1, finish: Time.current + 2, success: true)
+      dump3 = described_class.create(dump_type: holding_ids_dump_type, event: event3)
+      dump4 = described_class.create(dump_type: holding_ids_dump_type, event: event4)
       dump_file_type = DumpFileType.find_by(constant: 'HOLDING_IDS')
-      dump_file1 = DumpFile.create(dump: dump3, dump_file_type: dump_file_type)
-      dump_file2 = DumpFile.create(dump: dump4, dump_file_type: dump_file_type)
+      DumpFile.create(dump: dump3, dump_file_type: dump_file_type)
+      DumpFile.create(dump: dump4, dump_file_type: dump_file_type)
 
       allow(change_report).to receive(:merge_in_holding_report)
       allow(change_report).to receive(:created).and_return(['test-created-id'])
@@ -118,7 +118,7 @@ describe Dump do
 
     it 'compares the Voyager record exports' do
       dump_type = DumpType.find_by(constant: 'CHANGED_RECORDS')
-      dump = Dump.find_by(dump_type: dump_type)
+      dump = described_class.find_by(dump_type: dump_type)
       expect(dump).not_to be_nil
 
       expect(dump.create_ids).to eq(['test-created-id'])
@@ -148,7 +148,7 @@ describe Dump do
       expect(dump.dump_files).to eq [dump_file]
       expect(BibDumpJob).to have_received(:set).with(queue: priority)
       expect(BibDumpJob).to have_received(:perform_later).with(updated_ids, dump_file.id)
-      expect(dump_file.updated_at).to eq Time.now
+      expect(dump_file.updated_at).to eq Time.current
     end
   end
 
@@ -173,7 +173,7 @@ describe Dump do
       expect(dump.dump_files).to eq [dump_file]
       expect(BibDumpJob).to have_received(:set).with(queue: priority)
       expect(BibDumpJob).to have_received(:perform_later).with(created_ids, dump_file.id)
-      expect(dump_file.updated_at).to eq Time.now
+      expect(dump_file.updated_at).to eq Time.current
     end
   end
 
@@ -198,7 +198,7 @@ describe Dump do
       expect(dump.dump_files).to eq [dump_file]
       expect(BibDumpJob).to have_received(:set).with(queue: priority)
       expect(BibDumpJob).to have_received(:perform_later).with(bib_ids, dump_file.id)
-      expect(dump_file.updated_at).to eq Time.now
+      expect(dump_file.updated_at).to eq Time.current
     end
   end
 
@@ -220,7 +220,7 @@ describe Dump do
       expect(dump_file).to be_a DumpFile
       expect(dump.dump_files).to eq [dump_file]
       expect(RecapDumpJob).to have_received(:perform_later).with(updated_barcodes, dump_file.id)
-      expect(dump_file.updated_at).to eq Time.now
+      expect(dump_file.updated_at).to eq Time.current
     end
   end
 end

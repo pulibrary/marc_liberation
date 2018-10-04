@@ -24,6 +24,19 @@ AllCops:
     - 'config/initializers/*'
     - 'vendor/**/*'
 
+RSpec/ExampleLength:
+  Exclude:
+    - 'spec/models/dump_spec.rb'
+    - 'marc_to_solr/spec/lib/princeton_marc_spec.rb'
+    - 'spec/controllers/availability_controller_spec.rb'
+    - 'spec/controllers/patron_controller_spec.rb'
+    - 'spec/models/concerns/scsb_partner_updates_spec.rb'
+    - 'spec/models/event_spec.rb'
+    - 'spec/models/jsonld_record_spec.rb'
+    - 'spec/requests/bib_gets_spec.rb'
+    - 'spec/requests/course_reserves_spec.rb'
+    - 'spec/services/electronic_locations_factory_spec.rb'
+
 Style/BlockDelimiters:
   Exclude:
     - 'spec/models/jsonld_record_spec.rb'
@@ -35,8 +48,8 @@ Style/MethodDefParentheses:
   Enabled: false
 
 Style/NumericPredicate:
-  Enabled: false  
-    
+  Enabled: false
+
 Naming/AccessorMethodName:
   Exclude:
     - 'app/models/concerns/scsb_partner_updates.rb'
