@@ -8,6 +8,32 @@ describe Dump do
     allow(Time).to receive(:now).at_least(:once).and_return(mock_time)
   end
 
+  describe '.dump_bib_ids' do
+    before do
+      allow(VoyagerHelpers::SyncFu).to receive(:bib_ids_to_file)
+      described_class.dump_bib_ids
+    end
+
+    it 'constructs an Event and exports the voyager IDs to a file' do
+      event = Event.first
+      expect(event).not_to be_nil
+
+      dump = Dump.find_by(event: event)
+      expect(dump).not_to be_nil
+
+      dump_file = DumpFile.find_by(dump: dump)
+      expect(dump_file).not_to be_nil
+
+      dump_type = dump.dump_type
+      expect(dump_type).not_to be_nil
+
+      expect(dump_type.label).to eq 'All Bib IDs'
+      expect(dump_type.constant).to eq 'BIB_IDS'
+      expect(VoyagerHelpers::SyncFu).to have_received(:bib_ids_to_file).with('data/1')
+      expect(dump.dump_files).to eq([dump_file])
+    end
+  end
+
   describe '#dump_updated_records' do
     let(:updated_ids) do
       ["ea", "eb", "ec", "ed", "ei", "em", "es", "fa", "fb", "fc", "fd", "fi", "fm", "fs"]
