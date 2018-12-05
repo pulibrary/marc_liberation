@@ -3,6 +3,7 @@ require 'traject'
 require 'faraday'
 require 'time'
 require 'iso-639'
+require 'pry-byebug'
 
 describe 'From traject_config.rb' do
   let(:leader) { '1234567890' }
@@ -35,7 +36,7 @@ describe 'From traject_config.rb' do
     @title_vern_display = @indexer.map_record(fixture_record('4854502'))
     @scsb_journal = @indexer.map_record(fixture_record('scsb_nypl_journal'))
     @scsb_alt_title = @indexer.map_record(fixture_record('scsb_cul_alt_title'))
-	end
+  end
 
   describe 'the language_iana_s field' do
     it 'returns a language value based on the IANA Language Subtag Registry, rejecting invalid codes' do
@@ -108,10 +109,54 @@ describe 'From traject_config.rb' do
   describe 'the title vernacular display' do
     it 'is a single value for scsb records' do
       expect(@scsb_alt_title['title_vern_display'].length).to eq(1)
+      expect(@scsb_alt_title['title_vern_display']).to eq ['٤ حكومات ومعارضة : كاريكاتير جمعه / جمعه.']
     end
 
     it 'is a single value for pul records' do
       expect(@title_vern_display['title_vern_display'].length).to eq(1)
+      expect(@title_vern_display['title_vern_display']).to eq ['فوائد فقهية / للشريشي']
+    end
+  end
+  describe 'the primary title index' do
+    let(:scsb_document) { @indexer.map_record(fixture_record('scsb_cul_alt_title')) }
+    let(:document) { @indexer.map_record(fixture_record('4854502')) }
+
+    it 'is a single value for scsb records' do
+      expect(scsb_document['title_a_index'].length).to eq(3)
+      expect(scsb_document['title_a_index']).to eq ["4 Ḥukūmāt wa-muʻāraḍah", "٤ حكومات ومعارضة", "٤ حكومات ..ومعارضة!!"]
+    end
+
+    it 'is a single value for pul records' do
+      expect(document['title_a_index'].length).to eq(2)
+      expect(document['title_a_index']).to eq ["Fawāʼid fiqhīyah", "فوائد فقهية"]
+    end
+  end
+  describe 'the primary title vernacular display' do
+    let(:scsb_document) { @indexer.map_record(fixture_record('scsb_cul_alt_title')) }
+    let(:document) { @indexer.map_record(fixture_record('4854502')) }
+
+    it 'is a single value for scsb records' do
+      expect(scsb_document['title_a_vern_display'].length).to eq(1)
+      expect(scsb_document['title_a_vern_display']).to eq ['٤ حكومات ومعارضة']
+    end
+
+    it 'is a single value for pul records' do
+      expect(document['title_a_vern_display'].length).to eq(1)
+      expect(document['title_a_vern_display']).to eq ['فوائد فقهية']
+    end
+  end
+  describe 'the statement of responsibility vernacular display' do
+    let(:scsb_document) { @indexer.map_record(fixture_record('scsb_cul_alt_title')) }
+    let(:document) { @indexer.map_record(fixture_record('4854502')) }
+
+    it 'is a single value for scsb records' do
+      expect(scsb_document['title_c_vern_display'].length).to eq(1)
+      expect(scsb_document['title_c_vern_display']).to eq ['جمعه.']
+    end
+
+    it 'is a single value for pul records' do
+      expect(document['title_c_vern_display'].length).to eq(1)
+      expect(document['title_c_vern_display']).to eq ['للشريشي']
     end
   end
   describe 'publication_place_facet field' do

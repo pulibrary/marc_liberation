@@ -134,6 +134,10 @@ to_field 'title_a_index', extract_marc('245a', trim_punctuation: true)
 
 to_field 'title_vern_display', extract_marc('245abcfghknps', alternate_script: :only, first: true)
 
+to_field 'title_a_vern_display', extract_marc('245a', alternate_script: :only, first: true, trim_punctuation: true)
+
+to_field 'title_c_vern_display', extract_marc('245c', alternate_script: :only, first: true)
+
 # to_field 'title_sort', marc_sortable_title
 to_field 'title_sort' do |record, accumulator|
   MarcExtractor.cached("245abcfghknps", alternate_script: false).collect_matching_lines(record) do |field, spec, extractor|
