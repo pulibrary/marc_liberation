@@ -32,6 +32,16 @@ $LOAD_PATH.unshift(File.expand_path('../../', __FILE__)) # include marc_to_solr 
 
 to_field 'id', extract_marc('001', first: true)
 
+to_field 'marc_display', serialized_marc(:format => "xml", :binary_escape => false, :allow_oversized => true)
+
+to_field 'marc_created_s', extract_marc('008[00-05]')
+
+to_field 'marc_updated_timestamp_s', extract_marc('005')
+
+to_field 'marc_updated_date_s', extract_marc('005') do |record, accumulator|
+  accumulator.map! { |v| v[0..7] }
+end
+
 # if the id contains only numbers we know it's a princeton item
 to_field 'numeric_id_b', extract_marc('001', first: true) do |_record, accumulator|
   accumulator.map! { |v| /^[0-9]+$/.match(v) ? true : false }
