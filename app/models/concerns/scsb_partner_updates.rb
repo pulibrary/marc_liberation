@@ -30,12 +30,18 @@ module Scsb
         prepare_directory
         Net::SSH.start(ENV['RECAP_SERVER'], ENV['RECAP_UPDATE_USER'], port: 2222, keys: [ENV['RECAP_TRANSFER_KEY']]) do |ssh|
           files = ssh.sftp.dir.glob(ENV['RECAP_PARTNER_UPDATE_DIR'], '*.zip').map { |entry| { name: "#{ENV['RECAP_PARTNER_UPDATE_DIR']}/#{entry.name}", mod_time: Time.at(entry.attributes.mtime) } }
+          files += get_full_partner_filenames(ssh) if ENV['FULL_SCSB_DUMP'] == 'true'
           files.each do |file|
             next unless file[:mod_time] > @last_dump
-            filename = File.basename(file[:name])
-            ssh.sftp.download!(file[:name], "#{@update_directory}/#{filename}")
+            filename = file[:mod_time].strftime('%Y%m%d%H%M')
+            ssh.sftp.download!(file[:name], "#{@update_directory}/#{filename}.zip")
           end
         end
+      end
+
+      def get_full_partner_filenames(ssh)
+        files = ssh.sftp.dir.glob(ENV['RECAP_PARTNER_FULL_DIR'], '*.zip').map { |entry| { name: "#{ENV['RECAP_PARTNER_FULL_DIR']}/#{entry.name}", mod_time: Time.at(entry.attributes.mtime) } }
+        files.delete_if { |file| File.basename(file[:name]) =~ /PUL/ }
       end
 
       def get_partner_deletes
@@ -88,7 +94,6 @@ module Scsb
         files = Dir.glob("#{@update_directory}/*.zip")
         files.each do |file|
           filename = File.basename(file, '.zip')
-          filename.gsub!(/^[^_]+_([0-9]+)_([0-9]+).*$/, '\1_\2')
           file_increment = 1
           Zip::File.open(file) do |zip_file|
             zip_file.each do |entry|
