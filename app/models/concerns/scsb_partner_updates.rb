@@ -6,7 +6,7 @@ module Scsb
 
     def initialize(dump:, timestamp:)
       @dump = dump
-      @update_directory = ENV['SCSB_PARTNER_UPDATE_DIRECTORY'] || '/tmp/updates'
+      @update_directory = (ENV['SCSB_PARTNER_UPDATE_DIRECTORY'] || '/tmp/updates') + "/#{Time.now.strftime('%Y%m%d%H%M')}"
       @scsb_file_dir = ENV['SCSB_FILE_DIR'] || 'data'
       @last_dump = timestamp.to_time
       @inv_xml = []

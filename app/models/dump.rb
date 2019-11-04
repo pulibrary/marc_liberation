@@ -114,7 +114,11 @@ class Dump < ActiveRecord::Base
       timestamp = incremental_update_timestamp(dump_type)
       Event.record do |event|
         dump = Dump.create(dump_type: DumpType.find_by(constant: dump_type))
-        ScsbImportJob.perform_later(dump.id, timestamp)
+        if ENV['FULL_SCSB_DUMP'] == 'true'
+          ScsbImportJob.perform_now(dump.id, timestamp)
+        else
+          ScsbImportJob.perform_later(dump.id, timestamp)
+        end
         dump.event = event
         dump.save
       end
