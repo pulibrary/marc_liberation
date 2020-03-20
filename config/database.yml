@@ -1,25 +1,23 @@
-development:
+default: &default
   adapter: postgresql
   encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5) %>
+  timeout: 5000
+
+development:
+  <<: *default
   database: marc_liberation_dev
   pool: 5
-  timeout: 5000
-  host: localhost
 
 test:
-  adapter: postgresql
-  encoding: unicode
+  <<: *default
   database: marc_liberation_test
   pool: 5
-  timeout: 5000
-  host: 127.0.0.1
 
 production:
-  adapter: postgresql
-  encoding: unicode
+  <<: *default
   database: <%= ENV['BIBDATA_DB'] %>
   pool: 20
   username: <%= ENV['BIBDATA_DB_USERNAME'] %>
   password: <%= ENV['BIBDATA_DB_PASSWORD'] %>
-  timeout: 5000
   host: <%= ENV['BIBDATA_DB_HOST'] %>
