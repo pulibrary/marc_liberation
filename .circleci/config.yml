@@ -7,11 +7,12 @@ jobs:
     docker:
       - image: circleci/ruby:2.6-node-browsers
         environment:
+          PGHOST: 127.0.0.1
+          PGUSER: bibdata
           RAILS_ENV: test
-
       - image: postgres:10.6-alpine
         environment:
-          POSTGRES_USER: marc_liberation_test
+          POSTGRES_USER: bibdata
           POSTGRES_DB: marc_liberation_test
           POSTGRES_HOST_AUTH_METHOD: trust
 
