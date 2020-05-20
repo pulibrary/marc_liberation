@@ -1118,6 +1118,14 @@ each_record do |record, context|
     end
     location_codes << holding_b
   end
+  # Don't check for hathi if the oclc is missing.
+  if context.output_hash['oclc_s'].present?
+    hathi_line = find_hathi_by_oclc(context.output_hash['oclc_s'].first)
+    hathi_locations = parse_locations_from_hathi_line(hathi_line)
+    hathi_id = parse_hathi_identifer_from_hathi_line(hathi_line)
+    location_codes = location_codes | hathi_locations
+    context.output_hash['hathi_identifier_s'] = hathi_id if hathi_id.present?
+  end  
   unless location_codes.empty?
     location_codes.uniq!
     ## need to through any location code that isn't from voyager, thesis, or graphic arts

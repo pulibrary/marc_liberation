@@ -35,6 +35,8 @@ describe 'From traject_config.rb' do
     @title_vern_display = @indexer.map_record(fixture_record('4854502'))
     @scsb_journal = @indexer.map_record(fixture_record('scsb_nypl_journal'))
     @scsb_alt_title = @indexer.map_record(fixture_record('scsb_cul_alt_title'))
+    @hathi_present = @indexer.map_record(fixture_record('1590302'))
+    @hathi_permanent = @indexer.map_record(fixture_record('1459166'))
 	end
 
   describe 'the language_iana_s field' do
@@ -253,6 +255,16 @@ describe 'From traject_config.rb' do
       expect(@online_at_library['location_code_s']).to include 'rcpph'
       expect(@online_at_library['access_facet']).to include 'Online'
       expect(@online_at_library['access_facet']).to include 'In the Library'
+    end
+    it 'value include hathi locations when record is present in hathi report' do
+      expect(@hathi_present['location_code_s']).to contain_exactly('sci','hathi','hathi_temp')
+      expect(@hathi_present['access_facet']).to contain_exactly('Temporary Hathi','Online','In the Library')
+      expect(@hathi_present['hathi_identifier_s']).to contain_exactly("mdp.39015002162876")
+    end
+    it 'value include online when record is present in hathi report with permanent access' do
+      expect(@hathi_permanent['location_code_s']).to contain_exactly('rcppa','hathi')
+      expect(@hathi_permanent['access_facet']).to contain_exactly('Online','In the Library')
+      expect(@hathi_permanent['hathi_identifier']).to contain_exactly("mdp.39015036879529")
     end
   end
   describe 'holdings_1display' do

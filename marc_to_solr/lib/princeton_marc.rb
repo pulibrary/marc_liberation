@@ -774,3 +774,23 @@ def process_recap_notes record
     end
   item_notes
 end
+
+def find_hathi_by_oclc(oclc)
+  output_dir = ENV['HATHI_OUTPUT_DIR']
+  overlap_file=Dir.glob("#{output_dir}/overlap*final.tsv").sort_by { |filename| filename.to_date.strftime}.last
+  oclc_hathi = `grep "^#{oclc}\t" #{overlap_file}`
+end
+
+# "980\t1590302\tmono\tdeny\tic\tmdp.39015002162876\n980\t1590302\tmono\tdeny\tic\tmdp.39015010651894\n980\t1590302\tmono\tdeny\tic\tmdp.39015066013585\n"
+def parse_locations_from_hathi_line(line)
+  return [] if line.blank?
+  access= line.split("\t")[3]
+  locs = ["hathi"]
+  locs << "hathi_temp" if access == "deny"
+  locs
+end
+
+def parse_hathi_identifer_from_hathi_line(line)
+  return "" if line.blank?
+  [line.split("\n").first.split("\t")[5]]
+end
