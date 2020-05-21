@@ -264,7 +264,7 @@ describe 'From traject_config.rb' do
     it 'value include online when record is present in hathi report with permanent access' do
       expect(@hathi_permanent['location_code_s']).to contain_exactly('rcppa','hathi')
       expect(@hathi_permanent['access_facet']).to contain_exactly('Online','In the Library')
-      expect(@hathi_permanent['hathi_identifier']).to contain_exactly("mdp.39015036879529")
+      expect(@hathi_permanent['hathi_identifier_s']).to contain_exactly("mdp.39015036879529")
     end
   end
   describe 'holdings_1display' do

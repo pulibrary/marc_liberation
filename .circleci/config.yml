@@ -80,6 +80,7 @@ jobs:
             FIGGY_ARK_CACHE_PATH: marc_to_solr/spec/fixtures/figgy_ark_cache
             TRAJECT_CONFIG: marc_to_solr/lib/traject_config.rb
             BIBDATA_ADMIN_NETIDS: admin123
+            HATHI_OUTPUT_DIR: marc_to_solr/spec/fixtures/
 
 workflows:
   version: 2
