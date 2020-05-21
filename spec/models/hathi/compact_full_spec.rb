@@ -8,6 +8,8 @@ RSpec.describe Hathi::CompactFull do
     let(:compact_file) {File.join(hathi_output, 'hathi_full_20200501_compacted.tsv')}
     
     it 'compacts the full hathi file' do
+      original_outputdir = ENV['HATHI_OUTPUT_DIR']
+      original_inputdir = ENV['HATHI_OUTPUT_DIR']
       ENV['HATHI_INPUT_DIR'] = hathi_directory
       ENV['HATHI_OUTPUT_DIR'] = hathi_output
       described_class.compact_full
@@ -26,6 +28,8 @@ RSpec.describe Hathi::CompactFull do
                                      "mdp.39015069868340\t214394419\n"\
                                      "mdp.39015069868340\t28015\n")
       File.delete(output_file.path)
+      ENV['HATHI_INPUT_DIR'] = original_inputdir
+      ENV['HATHI_OUTPUT_DIR'] = original_outputdir
     end
   end
 end
