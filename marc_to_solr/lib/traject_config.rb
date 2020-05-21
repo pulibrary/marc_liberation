@@ -1119,11 +1119,11 @@ each_record do |record, context|
     location_codes << holding_b
   end
   # Don't check for hathi if the oclc is missing.
+  hathi_locations = []
   if context.output_hash['oclc_s'].present?
     hathi_line = find_hathi_by_oclc(context.output_hash['oclc_s'].first)
     hathi_locations = parse_locations_from_hathi_line(hathi_line)
     hathi_id = parse_hathi_identifer_from_hathi_line(hathi_line)
-    location_codes = location_codes | hathi_locations
     context.output_hash['hathi_identifier_s'] = hathi_id if hathi_id.present?
   end  
   unless location_codes.empty?
@@ -1144,7 +1144,7 @@ each_record do |record, context|
       end
     end
 
-    context.output_hash['access_facet'] = Traject::TranslationMap.new("access", default: "In the Library").translate_array(location_codes)
+    context.output_hash['access_facet'] = Traject::TranslationMap.new("access", default: "In the Library").translate_array(location_codes | hathi_locations)
     context.output_hash['access_facet'].uniq!
 
     context.output_hash['location'].uniq!
