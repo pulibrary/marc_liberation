@@ -777,7 +777,15 @@ end
 
 def find_hathi_by_oclc(oclc)
   output_dir = ENV['HATHI_OUTPUT_DIR']
+  if output_dir.blank?
+    puts "The output directory must be set for Hathi comparison to work!!! ENV['HATHI_OUTPUT_DIR']"
+    return ""
+  end
   overlap_file=Dir.glob("#{output_dir}/overlap*final.tsv").sort_by { |filename| filename.to_date.strftime}.last
+  if overlap_file.blank?
+    puts "The overlap file is missing from #{output_dir}!!"
+    return ""
+  end
   oclc_hathi = `grep "^#{oclc}\t" #{overlap_file}`
 end
 
