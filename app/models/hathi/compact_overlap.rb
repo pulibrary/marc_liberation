@@ -10,7 +10,7 @@ module Hathi
           csv << row.headers() if first
           csv << row if row["access"] == "allow" || row["access"] == "deny"
           first = false
-        end  
+        end
       end
     end
   end  

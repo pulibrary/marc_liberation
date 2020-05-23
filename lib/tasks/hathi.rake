@@ -1,3 +1,15 @@
+require 'faraday'
+require 'rsolr'
+
+default_bibdata_url = 'https://bibdata.princeton.edu'
+bibdata_url = ENV['BIBDATA_URL'] || default_bibdata_url
+
+conn = Faraday.new(url: bibdata_url) do |faraday|
+  faraday.request  :url_encoded             # form-encode POST params
+  faraday.response :logger                  # log requests to STDOUT
+  faraday.adapter  Faraday.default_adapter  # make requests with Net::HTTP
+end
+
 namespace :hathi do
   
   desc "compact hathi overlap report to only include files that overlap"
@@ -34,5 +46,44 @@ namespace :hathi do
     else
       puts "Environment variable HATHI_INPUT_DIR & HATHI_OUTPUT_DIR must be set!"
     end
-  end  
+  end
+  
+  desc 'Compact the Full Hathi Data the Overlap file and combine the files'
+  task compact_and_merge: :environment do
+    if ENV['HATHI_INPUT_DIR'] && ENV['HATHI_OUTPUT_DIR']
+      Rake::Task["hathi:compact_overlap"].invoke 
+      Rake::Task["hathi:compact_full"].invoke 
+      Rake::Task["hathi:merge"].invoke 
+    else
+      puts "Environment variable HATHI_INPUT_DIR & HATHI_OUTPUT_DIR must be set!"
+    end
+  end
+
+  desc 'Index Hathi records using the Hathi final file. (SET_URL: set the solr url)'
+  task index_csv: :environment do
+    solr_url = ENV['SET_URL']
+    solr = IndexFunctions.rsolr_connection(solr_url)
+    url_arg = ENV['SET_URL'] ? "-u #{ENV['SET_URL']}" : ''
+    if ENV['HATHI_OUTPUT_DIR']
+      hathi_file = Hathi::CompactFull.get_hathi_file(directory: ENV['HATHI_OUTPUT_DIR'], pattern: 'overlap*compacted_sorted_final.tsv', date_pattern: 'overlap_%Y%m%d_compacted_sorted_final.tsv')
+      CSV.foreach(hathi_file, col_sep: "\t", headers: true) do |row|
+        if row[1].present?
+          ENV['BIB']=row[1]
+          #`SET_ULR=#{solr_url} BIB=#{ENV['BIB']} bundle exec bin/rake #{Rake::Task["liberate:bib"].execute}`
+          if ENV['BIB']
+            resp = conn.get "/bibliographic/#{ENV['BIB']}"
+            File.binwrite('./tmp/tmp.xml', resp.body)
+            sh "traject -c marc_to_solr/lib/traject_config.rb ./tmp/tmp.xml #{url_arg}"
+          else
+            puts 'Please provide a BIB argument (BIB=####)'
+          end
+        else
+          Rails.logger.error("#{row} is missing oclc")
+        end
+      end
+    else
+      puts "Environment variable HATHI_OUTPUT_DIR must be set!"
+    end
+    solr.commit
+  end
 end
