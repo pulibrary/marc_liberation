@@ -95,7 +95,8 @@ class Dump < ActiveRecord::Base
       end
       dump
     end
-
+    
+    # todo: get the bibs with holdings so that you get the file All bib ids with holdings
     def full_bib_dump
       dump = nil
       Event.record do |event|
@@ -159,6 +160,8 @@ class Dump < ActiveRecord::Base
         dump_file = DumpFile.create(dump: dump, dump_file_type: DumpFileType.find_by(constant: type)) unless type == 'PRINCETON_RECAP'
         if type == 'BIB_IDS'
           VoyagerHelpers::SyncFu.bib_ids_to_file(dump_file.path)
+        # add in the full dump. Create 164 line
+        # get the uniq bib ids.
         elsif type == 'MERGED_IDS'
           VoyagerHelpers::SyncFu.bibs_with_holdings_to_file(dump_file.path)
         elsif type == 'PRINCETON_RECAP'
