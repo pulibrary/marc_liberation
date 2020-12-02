@@ -618,7 +618,7 @@ end
 # location note, location has, location has (current), indexes, and supplements
 # pulls from mfhd 852, 866, 867, and 868
 # assumes exactly 1 852 is present per mfhd (it saves the last 852 it finds)
-def process_holdings record # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+def process_holdings record # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
   all_holdings = {}
   Traject::MarcExtractor.cached('852').collect_matching_lines(record) do |field, _spec, _extractor|
     holding = {}
@@ -627,13 +627,15 @@ def process_holdings record # rubocop:disable Metrics/AbcSize, Metrics/Cyclomati
       if s_field.code == '0'
         holding_id = s_field.value
       elsif s_field.code == 'b'
-        holding['location'] ||= Traject::TranslationMap.new("locations", default: "__passthrough__")[s_field.value]
+        holding['location'] ||= s_field.value
         holding['library'] ||= Traject::TranslationMap.new("location_display", default: "__passthrough__")[s_field.value]
         holding['location_code'] ||= s_field.value
       elsif /[ckhij]/.match?(s_field.code)
         holding['call_number'] ||= []
         holding['call_number'] << s_field.value
-        unless s_field.code == 'c'
+        if s_field.code == 'c'
+          holding['location'] += s_field.value
+        elsif s_field.code == 'c'
           holding['call_number_browse'] ||= []
           holding['call_number_browse'] << s_field.value
         end
