@@ -15,8 +15,8 @@ Rails.application.routes.draw do
   post '/bibliographic', to: 'bibliographic#update'
 
   get '/holdings', to: 'holdings#index', defaults: { format: :txt }
-  get '/holdings/:holding_id', to: 'holdings#holding', defaults: { format: :json }
-  get '/holdings/:holding_id/items', to: 'holdings#holding_items', defaults: { format: :json }
+  get '/holdings/:bib_id/:holding_id', to: 'holdings#holding', defaults: { format: :json, format: :xml }
+  get '/holdings/:bib_id/:holding_id/items', to: 'holdings#holding_items', defaults: { format: :json, format: :xml }
 
   get '/availability', to: 'availability#index', defaults: { format: :json }
 
