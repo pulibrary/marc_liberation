@@ -1,0 +1,180 @@
+{
+  "total_record_count": "",
+  "item": [
+    {
+      "link": "",
+      "bib_data": {
+        "link": "",
+        "mms_id": "991122800000121",
+        "title": "Title of a book in Alma",
+        "author": "Miller, John",
+        "issn": "",
+        "isbn": "9780596514556 (pbk.)",
+        "complete_edition": "",
+        "network_numbers": [
+          ""
+        ],
+        "place_of_publication": "Sebastopol, CA :",
+        "date_of_publication": "2013",
+        "publisher_const": "P'Reilly Media Inc"
+      },
+      "holding_data": {
+        "link": "",
+        "holding_id": "224831320000121",
+        "call_number_type": {
+          "desc": "string",
+          "value": "#"
+        },
+        "call_number": "holding CN pre holding Cn suf",
+        "accession_number": "",
+        "copy_id": "142312420001021",
+        "in_temp_location": "false",
+        "temp_library": {
+          "desc": "string",
+          "value": ""
+        },
+        "temp_location": {
+          "desc": "string",
+          "value": "f"
+        },
+        "temp_call_number_type": {
+          "desc": "string",
+          "value": "#"
+        },
+        "temp_call_number": "",
+        "temp_policy": {
+          "desc": "string",
+          "value": "09"
+        },
+        "due_back_date": "2020-02-01Z"
+      },
+      "item_data": {
+        "pid": "23344156380001021",
+        "barcode": "39031031697261",
+        "creation_date": "2012-06-10Z",
+        "modification_date": "2012-06-10Z",
+        "base_status": {
+          "desc": "string",
+          "value": "0"
+        },
+        "awaiting_reshelving": "false",
+        "reshelving_time": "2020-06-23T14:00:00.000Z",
+        "physical_material_type": {
+          "desc": "string",
+          "value": "ROOM"
+        },
+        "policy": {
+          "desc": "string",
+          "value": "09"
+        },
+        "provenance": {
+          "desc": "string",
+          "value": ""
+        },
+        "po_line": "08-000030003",
+        "is_magnetic": "false",
+        "arrival_date": "2014-08-01Z",
+        "expected_arrival_date": "2014-08-01Z",
+        "year_of_issue": "2015",
+        "enumeration_a": "",
+        "enumeration_b": "",
+        "enumeration_c": "",
+        "enumeration_d": "",
+        "enumeration_e": "",
+        "enumeration_f": "",
+        "enumeration_g": "",
+        "enumeration_h": "",
+        "chronology_i": "",
+        "chronology_j": "",
+        "chronology_k": "",
+        "chronology_l": "",
+        "chronology_m": "",
+        "description": "This item's description",
+        "replacement_cost": "50.0",
+        "receiving_operator": "",
+        "process_type": {
+          "desc": "string",
+          "value": "ACQ"
+        },
+        "work_order_type": {
+          "desc": "string",
+          "value": ""
+        },
+        "work_order_at": {
+          "desc": "string",
+          "value": ""
+        },
+        "inventory_number": "10791310001021",
+        "inventory_date": "2013-12-11Z",
+        "inventory_price": "100",
+        "receive_number": "10791310001021",
+        "weeding_number": "10791310001021",
+        "weeding_date": "2013-12-11Z",
+        "library": {
+          "desc": "string",
+          "value": "GRAD"
+        },
+        "location": {
+          "desc": "string",
+          "value": "STACK"
+        },
+        "alternative_call_number": "121108431000",
+        "alternative_call_number_type": {
+          "desc": "string",
+          "value": "#"
+        },
+        "alt_number_source": "105510551055",
+        "storage_location_id": "1021021021",
+        "pages": "100",
+        "pieces": "100",
+        "public_note": "Public note",
+        "fulfillment_note": "Fulfillment note",
+        "due_date": "2020-06-23T14:00:00.000Z",
+        "due_date_policy": "",
+        "internal_note_1": "",
+        "internal_note_2": "",
+        "internal_note_3": "",
+        "statistics_note_1": "",
+        "statistics_note_2": "",
+        "statistics_note_3": "",
+        "requested": "false",
+        "edition": "",
+        "imprint": "",
+        "language": "EN",
+        "library_details": {
+          "address": {
+            "line1": "address line 1",
+            "line2": "address line 2",
+            "line3": "address line 3",
+            "line4": "address line 4",
+            "line5": "address line 5",
+            "city": "Boston",
+            "country": {
+              "desc": "string",
+              "value": "VUT"
+            },
+            "email": "example@example.com",
+            "phone": "1821-131353",
+            "postal_code": "391850011",
+            "state": "state"
+          }
+        },
+        "alt_call_no": [
+          ""
+        ],
+        "call_no": [
+          ""
+        ],
+        "issue_level_description": [
+          ""
+        ],
+        "title_abcnph": "abcnph title",
+        "physical_condition": {
+          "desc": "string",
+          "value": "#"
+        }
+      },
+      "additional_info": ""
+    }
+  ]
+}

@@ -89,24 +89,36 @@ class BibliographicController < ApplicationController
     end
   end
 
+  def item_records
+    @item_records ||= bib_adapter.get_items_for_bib(bib_id_param)
+  end
+
+  def items
+    @items ||= MarcLiberation::ItemsBuilder.build(item_records)
+  end
+
   def bib_items
-    records = bib_adapter.get_items_for_bib(bib_id_param)
-    if records.nil? || records.empty?
-      render plain: "Record #{params[:bib_id]} not found or suppressed", status: 404
+    if items.blank?
+      render plain: "Record #{bib_id_param} not found or suppressed", status: 404
     else
       respond_to do |wants|
-        wants.json  { render json: MultiJson.dump(add_locator_call_no(records)) }
+        wants.json { render json: MultiJson.dump(items) }
         wants.xml { render xml: '<todo but="You probably want JSON anyway" />' }
       end
     end
   end
 
-  def update
-    records = find_by_id(voyager_opts)
-    return render plain: "Record #{sanitized_id} not found or suppressed", status: 404 if records.nil?
+  def build_marc_file
     file = Tempfile.new("#{sanitized_id}.mrx")
     file.write(records_to_xml_string(records))
     file.close
+    file
+  end
+
+  def update
+    records = find_by_id(voyager_opts)
+    return render plain: "Record #{sanitized_id} not found or suppressed", status: 404 if records.nil?
+
     index_job_queue.add(file: file.path)
     redirect_to index_path, flash: { notice: "Reindexing job scheduled for #{sanitized_id}" }
   rescue StandardError => error
@@ -198,32 +210,56 @@ class BibliographicController < ApplicationController
       sanitize(params[:bib_id])
     end
 
-    def add_locator_call_no(records)
-      records["f"] = records["f"].map do |record|
-        record[:sortable_call_number] = sortable_call_number(record[:call_number])
-        record
+    module MarcLiberation
+      class CallNumber
+        attr_reader :value
+
+        def initialize(value)
+          @value = value
+          normalize
+        end
+
+        def normalize
+          dot_parts = value.tr(',', '.').split('.')
+          return value if dot_parts.count <= 1
+
+          parts = dot_parts[0].scan(/[A-Za-z]+|\d+/)
+          parts[1] = parts[1].rjust(4, '0')
+          dot_parts[0] = parts.join('.')
+          @value = dot_parts.join('.')
+        end
       end
-      records
-    end
 
-    def sortable_call_number(call_no)
-      return call_no unless call_no =~ /^[A-Za-z]/
-      lsort_result = Lcsort.normalize(call_no)
-      return lsort_result.gsub('..', '.') unless lsort_result.nil?
-      force_number_part_to_have_4_digits(call_no)
-    rescue
-      call_no
-    end
+      class SortableCallNumber < CallNumber
+        def normalize
+          return value unless value =~ /^[A-Za-z]/
 
-    # This routine adjust something from "A53.blah" to "A0053.blah" for sorting purposes
-    #
-    def force_number_part_to_have_4_digits(call_no)
-      dot_parts = call_no.tr(',', '.').split('.')
-      return call_no if dot_parts.count <= 1
+          lsort_result = Lcsort.normalize(value)
+          @value = lsort_result.gsub('..', '.') unless lsort_result.nil?
+          super
+        end
+      end
 
-      parts = dot_parts[0].scan(/[A-Za-z]+|\d+/)
-      parts[1] = parts[1].rjust(4, '0')
-      dot_parts[0] = parts.join('.')
-      dot_parts.join('.')
+      class ItemsBuilder
+        # Constructor
+        # @param records [Hash]
+        def initialize(records)
+          @records = records.deep_symbolize_keys
+        end
+
+        # @return [Array<Hash>]
+        def records
+          @records[:f].map do |record|
+            call_number = SortableCallNumber.new(record[:call_number])
+            record[:sortable_call_number] = call_number
+            record
+          end
+        end
+
+        def self.build(records)
+          obj = new(records)
+          obj.records
+        end
+      end
     end
 end
