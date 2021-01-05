@@ -634,8 +634,8 @@ def process_holdings record # rubocop:disable Metrics/AbcSize, Metrics/Cyclomati
       elsif s_field.code == '0'
         holding_id = s_field.value
       elsif s_field.code == 'b'
-        holding['location'] ||= is_alma ? record["952"]&.[]("c") : Traject::TranslationMap.new("locations", default: "__passthrough__")[s_field.value]
         holding['library'] ||= is_alma ? record["952"]&.[]("b") : Traject::TranslationMap.new("location_display", default: "__passthrough__")[s_field.value]
+        holding['location'] ||= is_alma ? "#{holding['library']} - #{record["952"]&.[]("c")}" : Traject::TranslationMap.new("locations", default: "__passthrough__")[s_field.value]
         holding['location_code'] ||= s_field.value
         # Append 852c to location code if it's an Alma item - holding starts
         # with 22.
