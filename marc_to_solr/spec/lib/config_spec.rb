@@ -50,6 +50,14 @@ describe 'From traject_config.rb' do
     it "can map an alma record" do
       record = @indexer.map_record(fixture_alma_record('99211662100521'))
     end
+    it "can index holdings" do
+      record = @indexer.map_record(fixture_alma_record('99211662100521'))
+      holdings = JSON.parse(record["holdings_1display"][0])
+      holding = holdings["2281813540006421"]
+      expect(holding["location"]).to eq "Periodicals"
+      expect(holding["library"]).to eq "Main Library"
+      expect(holding["location_code"]).to eq "MAIN-per-room"
+    end
   end
   describe 'the cataloged_date from publishing job' do
     describe "the date cataloged facets" do
