@@ -99,3 +99,8 @@ end
 every 1.day, at: "2:30pm", roles: [:hr_cron] do
   rake "campus_access:load", output: "/tmp/campus_access_log.log"
 end
+
+# delete old events, dumps, and files on disk
+every 1.week, roles: [:cron_staging, :cron_production] do
+  rake "marc_liberation:delete:events"
+end
