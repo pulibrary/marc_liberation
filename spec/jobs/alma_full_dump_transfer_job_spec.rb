@@ -9,8 +9,8 @@ RSpec.describe AlmaFullDumpTransferJob, type: :job do
       attrs
     )
   end
-  let(:remote_path1) { "/home/alma/fulldump_1436402400006421_20201218_211210[050]_new_1.tar.gz" }
-  let(:remote_path2) { "/home/alma/fulldump_1436402400006421_20201218_211210[050]_new_2.tar.gz" }
+  let(:remote_path1) { "/alma/publishing/fulldump_1436402400006421_20201218_211210[050]_new_1.tar.gz" }
+  let(:remote_path2) { "/alma/publishing/fulldump_1436402400006421_20201218_211210[050]_new_2.tar.gz" }
   let(:local_path1) { File.join(MARC_LIBERATION_CONFIG['data_dir'], "fulldump_1436402400006421_20201218_211210[050]_new_1.tar.gz") }
   let(:local_path2) { File.join(MARC_LIBERATION_CONFIG['data_dir'], "fulldump_1436402400006421_20201218_211210[050]_new_2.tar.gz") }
   let(:attrs) { Net::SFTP::Protocol::V01::Attributes.new({}) }

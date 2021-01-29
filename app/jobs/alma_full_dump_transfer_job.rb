@@ -3,7 +3,7 @@ require 'net/sftp'
 class AlmaFullDumpTransferJob < ActiveJob::Base
   queue_as :default
 
-  REMOTE_BASE_PATH = "/home/alma".freeze
+  REMOTE_BASE_PATH = "/alma/publishing".freeze
 
   def perform(dump:, job_id:)
     AlmaDownloader.files_for(job_id: job_id).each do |file|
