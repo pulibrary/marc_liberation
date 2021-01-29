@@ -39,4 +39,21 @@ RSpec.describe Alma::Indexer do
       expect(response['response']['numFound']).to eq 2
     end
   end
+
+  describe "#index_file" do
+    it "indexes a single uncompressed MARC XML file" do
+      solr_url = ENV["SOLR_URL"] || "http://#{ENV['lando_marc_liberation_test_solr_conn_host']}:#{ENV['lando_marc_liberation_test_solr_conn_port']}/solr/marc-liberation-core-test"
+      solr = RSolr.connect(url: solr_url)
+      solr.delete_by_query("*:*")
+
+      indexer = described_class.new(solr_url: solr_url)
+      file_name = file_fixture("alma/full_dump/2.xml")
+      indexer.index_file(file_name)
+
+      solr.commit
+      response = solr.get("select", params: { q: "*:*" })
+      # There's only one record in 2.xml
+      expect(response['response']['numFound']).to eq 1
+    end
+  end
 end

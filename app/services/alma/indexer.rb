@@ -9,9 +9,13 @@ class Alma::Indexer
   def full_reindex!
     full_reindex_file_urls.each do |url|
       download_and_decompress(url) do |file|
-        `traject -c marc_to_solr/lib/traject_config.rb #{file.path} -u #{solr_url}; true`
+        index_file(file.path)
       end
     end
+  end
+
+  def index_file(file_name)
+    `traject -c marc_to_solr/lib/traject_config.rb #{file_name} -u #{solr_url}; true`
   end
 
   def default_url_options
