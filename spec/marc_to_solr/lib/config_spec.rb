@@ -362,7 +362,7 @@ describe 'From traject_config.rb' do
   describe 'excluding locations from library facet' do
     it 'when location is online' do
       expect(@online['location_code_s']).to include 'online$elf1'
-      expect(@online['location_display']).to include 'Electronic Access - elf1 Internet Resources'
+      expect(@online['location_display']).to include 'Electronic Access - Electronic Access - elf1 Internet Resources'
       expect(@online['location']).to eq ['Electronic Access']
     end
 
@@ -374,11 +374,11 @@ describe 'From traject_config.rb' do
   end
   describe 'location facet values for Recap items' do
     it 'marquand recap items have a location value of marquand and recap' do
-      expect(@added_title_246['location_display']).to eq ['ReCAP - rcppj RECAP Marq. Lib.']
+      expect(@added_title_246['location_display']).to eq ['ReCAP - ReCAP - rcppj RECAP Marq. Lib.']
       expect(@added_title_246['location']).to eq ['ReCAP', 'Marquand Library']
     end
     it 'non-rare recap items only have a location value of recap' do
-      expect(@online_at_library['location_display']).to include 'ReCAP - rcpph RECAP Mudd Lib.'
+      expect(@online_at_library['location_display']).to include 'Electronic Access - Electronic Access - elf1 Internet Resources'
       expect(@online_at_library['location']).to include 'ReCAP'
       expect(@online_at_library['location']).not_to include 'Mudd Manuscript Library'
     end

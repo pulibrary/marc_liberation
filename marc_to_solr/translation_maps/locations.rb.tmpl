@@ -1,506 +1,843 @@
-{"arch$cat"=>"Architecture Library - Architecture Cataloging",
- "arch$circ"=>"Architecture Library - Architecture Circ",
- "arch$la"=>"Architecture Library - Architecture Librarian's Office",
- "arch$stacks"=>"Architecture Library - Architecture Library",
- "arch$newbook"=>"Architecture Library - Architecture New Book Shelf",
- "arch$ref"=>"Architecture Library - Architecture Reference",
- "arch$res3hr"=>"Architecture Library - Architecture Reserve 3-Hour",
- "arch$resclosed"=>"Architecture Library - Architecture Reserve Closed",
- "arch$UNASSIGNED"=>"Architecture Library - UNASSIGNED location",
- "eastasian$acq"=>"East Asian Library - East Asian Acquisitions",
- "eastasian$cat"=>"East Asian Library - East Asian Cataloging",
- "eastasian$circ"=>"East Asian Library - East Asian Circ",
- "eastasian$cjk"=>"East Asian Library - East Asian Library",
- "eastasian$hy"=>"East Asian Library - East Asian Library hy",
- "eastasian$hygf"=>"East Asian Library - East Asian Library Microfilms",
- "eastasian$cjkref"=>"East Asian Library - East Asian Library Reference",
- "eastasian$hyref"=>"East Asian Library - East Asian Library Ref HY",
- "eastasian$gest"=>"East Asian Library - East Asian Library Western Lang",
- "eastasian$hype"=>"East Asian Library - East Asian Periodicals hy",
- "eastasian$gestpr"=>"East Asian Library - East Asian Permanent Reserve",
- "eastasian$ref"=>"East Asian Library - East Asian Reference",
- "eastasian$reserve"=>"East Asian Library - East Asian Reserve",
- "eastasian$gestpe"=>"East Asian Library - Gest Periodicals",
- "eastasian$wilhelm"=>"East Asian Library - gstwc East Asian:Wilhelm",
- "eastasian$UNASSIGNED"=>"East Asian Library - UNASSIGNED location",
- "online$cdl"=>"Electronic Access - CDL Non-Reserves",
- "online$cdlres"=>"Electronic Access - CDL Reserves",
- "online$elf1"=>"Electronic Access - elf1 Internet Resources",
- "online$elf2"=>"Electronic Access - elf2 AccessLibWebComp",
- "online$elf3"=>"Electronic Access - elf3 Permanent Access",
- "online$elf4"=>"Electronic Access - elf4 Dixon eBooks",
- "online$etasrcp"=>"Electronic Access - ETAS Non Circ ReCAP",
- "online$etas"=>"Electronic Access - ETAS Non Circulating",
- "online$UNASSIGNED"=>"Electronic Access - UNASSIGNED location",
- "engineer$stacks"=>"Engineering Library - Engineering",
- "engineer$ast"=>"Engineering Library - Engineering A",
- "engineer$cat"=>"Engineering Library - Engineering Cataloging",
- "engineer$circ"=>"Engineering Library - Engineering Circ",
- "engineer$index"=>"Engineering Library - Engineering Indexes",
- "engineer$ltop"=>"Engineering Library - Engineering Laptop",
- "engineer$media"=>"Engineering Library - Engineering Media Collection",
- "engineer$mic"=>"Engineering Library - Engineering Microforms",
- "engineer$nb"=>"Engineering Library - Engineering New Book Shelf",
- "engineer$ref"=>"Engineering Library - Engineering Reference",
- "engineer$res"=>"Engineering Library - Engineering Reserve",
- "engineer$str"=>"Engineering Library - Engineering S",
- "engineer$serial"=>"Engineering Library - Engineering Serials",
- "engineer$resterm"=>"Engineering Library - Engineering Term Loan",
- "engineer$theses"=>"Engineering Library - Engineering Theses",
- "engineer$scc"=>"Engineering Library - scc Engin. Friend C Archv",
- "engineer$UNASSIGNED"=>"Engineering Library - UNASSIGNED location",
- "firestone$aas"=>"Firestone Library - aas Afri Amer St RR",
- "firestone$clas"=>"Firestone Library - clas Classics Coll.",
- "firestone$clasnc"=>"Firestone Library - clasnc Classics Non Circ",
- "firestone$dixn"=>"Firestone Library - dixn Dixon Books",
- "firestone$docs"=>"Firestone Library - docs Gov. Documents",
- "firestone$docsm"=>"Firestone Library - docsm Gov.Docs.Microforms",
- "firestone$dra"=>"Firestone Library - dra Trustee RR Atlases",
- "firestone$drrr"=>"Firestone Library - drrr Trustee RR ReadyRef",
- "firestone$dr"=>"Firestone Library - dr Trustee RR Ref.",
- "firestone$dss"=>"Firestone Library - dss Data & Statis. Serv.",
- "firestone$egsr"=>"Firestone Library - egsr English GSR",
- "firestone$fac"=>"Firestone Library - fac Faculty Publications",
- "firestone$cat"=>"Firestone Library - Firestone Cataloging",
- "firestone$circ"=>"Firestone Library - Firestone Circ",
- "firestone$stacks"=>"Firestone Library - Firestone Library",
- "firestone$fis"=>"Firestone Library - fis French&Italian GSR",
- "firestone$flmb"=>"Firestone Library - flmb Firestone Microforms",
- "firestone$flm"=>"Firestone Library - flm Firestone Microforms",
- "firestone$flmm"=>"Firestone Library - flmm Firestone Microforms",
- "firestone$flmp"=>"Firestone Library - flmp Firestone Microforms",
- "firestone$noncirc"=>"Firestone Library - fnc Firestone Non Circ",
- "firestone$gestf"=>"Firestone Library - gestf Firestone Micro EA",
- "firestone$gss"=>"Firestone Library - gss G&SS Research Coll",
- "firestone$hldn"=>"Firestone Library - hldn Holden Coll.",
- "firestone$law"=>"Firestone Library - law Law Cases & Statutes",
- "firestone$lrc"=>"Firestone Library - lrc Firestone Circ Desk",
- "firestone$lrcpt"=>"Firestone Library - lrcpt Video Lib Res",
- "firestone$lrcr"=>"Firestone Library - lrcr Video Lib Res",
- "firestone$ltop"=>"Firestone Library - ltop Computer Media F",
- "firestone$necnc"=>"Firestone Library - necnc Near East Non Circ",
- "firestone$nec"=>"Firestone Library - nec Near East Coll",
- "firestone$nr"=>"Firestone Library - nr Newspaper Coll: Recent",
- "firestone$pres"=>"Firestone Library - pres Preservation Office",
- "firestone$prne"=>"Firestone Library - prne Near East Per. Coll.",
- "firestone$pr"=>"Firestone Library - pr Periodicals Collection",
- "firestone$raas"=>"Firestone Library - raas Afri Amer St Reserve",
- "firestone$res3hr"=>"Firestone Library - resc Firestone 3 Hr Res",
- "firestone$res24hr"=>"Firestone Library - reso Firestone 24 Hr Res",
- "firestone$rrel"=>"Firestone Library - rrel Religion GSR: Res",
- "firestone$rsc"=>"Firestone Library - rsc Classics GS: Res",
- "firestone$rsd"=>"Firestone Library - rsd Germ. Lang. GSR: Res",
- "firestone$rse"=>"Firestone Library - rse English GSR: Res",
- "firestone$rsh"=>"Firestone Library - rsh History Reference Res",
- "firestone$rslv"=>"Firestone Library - rslv Russ Stud GSR: Res",
- "firestone$rsne"=>"Firestone Library - rsne Near East GSR: Res",
- "firestone$rspc"=>"Firestone Library - rspc Comp.Lit GSR: Res",
- "firestone$rssa"=>"Firestone Library - rssa Sociology GSR: Res",
- "firestone$sc"=>"Firestone Library - sc Classics GS",
- "firestone$sd"=>"Firestone Library - sd Germ. Lang. GSR",
- "firestone$seref"=>"Firestone Library - seref Scribner Room: Ref.",
- "firestone$se"=>"Firestone Library - se Scribner Room",
- "firestone$sh"=>"Firestone Library - sh History Reference",
- "firestone$shs"=>"Firestone Library - shs Hellenic Studies RR",
- "firestone$slav"=>"Firestone Library - slav Russian Studies GSR",
- "firestone$sne"=>"Firestone Library - sne Near East GSR",
- "firestone$spc"=>"Firestone Library - spc Comp. Lit. GSR",
- "firestone$sps"=>"Firestone Library - sps Spanish&Portug. GSR",
- "firestone$srel"=>"Firestone Library - srel Religion GSR",
- "firestone$ssa"=>"Firestone Library - ssa Sociology GSR",
- "firestone$sss"=>"Firestone Library - sss History GS",
- "firestone$trv"=>"Firestone Library - trv Travel Guides",
- "firestone$UNASSIGNED"=>"Firestone Library - UNASSIGNED location",
- "firestone$un"=>"Firestone Library - un United Nations Coll.",
- "firestone$vidl"=>"Firestone Library - vidl Firestone Circ Desk",
- "firestone$vidlr"=>"Firestone Library - vidlr Video Lib Res",
- "firestone$xlnc"=>"Firestone Library - xlnc Very large Non Circ",
- "firestone$xl"=>"Firestone Library - xl Very large books",
- "firestone$zeiss"=>"Firestone Library - zeiss Zeiss Wildlife Coll.",
- "annex$cat"=>"Forrestal Annex - Annex Cataloging",
- "annex$circ"=>"Forrestal Annex - Annex Circ",
- "annex$sct"=>"Forrestal Annex - Annex Classics Theses",
- "annex$set"=>"Forrestal Annex - Annex English Theses",
- "annex$sdt"=>"Forrestal Annex - Annex German Theses",
- "annex$sht"=>"Forrestal Annex - Annex History Theses",
- "annex$locked"=>"Forrestal Annex - Annex Locked",
- "annex$noncirc"=>"Forrestal Annex - Annex Non-Circ",
- "annex$spt"=>"Forrestal Annex - Annex Philosophy Theses",
- "annex$princeton"=>"Forrestal Annex - Annex Princeton Collection",
- "annex$reserve"=>"Forrestal Annex - Annex Reserve",
- "annex$srt"=>"Forrestal Annex - Annex Romance Language Theses",
- "annex$stacks"=>"Forrestal Annex - Annex Stacks",
- "annex$t"=>"Forrestal Annex - Annex Theses Collection",
- "annex$doc"=>"Forrestal Annex - anxadoc Annex A Docs Stor",
- "annex$fst"=>"Forrestal Annex - anxafst Annex A Staging",
- "annex$UNASSIGNED"=>"Forrestal Annex - UNASSIGNED location",
+{"arch$cat"=>
+  "Architecture Library - Architecture Library - Architecture Cataloging",
+ "arch$circ"=>
+  "Architecture Library - Architecture Library - Architecture Circ",
+ "arch$la"=>
+  "Architecture Library - Architecture Library - Architecture Librarian's Office",
+ "arch$stacks"=>
+  "Architecture Library - Architecture Library - Architecture Library",
+ "arch$newbook"=>
+  "Architecture Library - Architecture Library - Architecture New Book Shelf",
+ "arch$ref"=>
+  "Architecture Library - Architecture Library - Architecture Reference",
+ "arch$res3hr"=>
+  "Architecture Library - Architecture Library - Architecture Reserve 3-Hour",
+ "arch$resclosed"=>
+  "Architecture Library - Architecture Library - Architecture Reserve Closed",
+ "arch$UNASSIGNED"=>
+  "Architecture Library - Architecture Library - UNASSIGNED location",
+ "eastasian$acq"=>
+  "East Asian Library - East Asian Library - East Asian Acquisitions",
+ "eastasian$cat"=>
+  "East Asian Library - East Asian Library - East Asian Cataloging",
+ "eastasian$circ"=>"East Asian Library - East Asian Library - East Asian Circ",
+ "eastasian$cjk"=>
+  "East Asian Library - East Asian Library - East Asian Library",
+ "eastasian$hy"=>
+  "East Asian Library - East Asian Library - East Asian Library hy",
+ "eastasian$hygf"=>
+  "East Asian Library - East Asian Library - East Asian Library Microfilms",
+ "eastasian$cjkref"=>
+  "East Asian Library - East Asian Library - East Asian Library Reference",
+ "eastasian$hyref"=>
+  "East Asian Library - East Asian Library - East Asian Library Ref HY",
+ "eastasian$gest"=>
+  "East Asian Library - East Asian Library - East Asian Library Western Lang",
+ "eastasian$hype"=>
+  "East Asian Library - East Asian Library - East Asian Periodicals hy",
+ "eastasian$gestpr"=>
+  "East Asian Library - East Asian Library - East Asian Permanent Reserve",
+ "eastasian$ref"=>
+  "East Asian Library - East Asian Library - East Asian Reference",
+ "eastasian$reserve"=>
+  "East Asian Library - East Asian Library - East Asian Reserve",
+ "eastasian$gestpe"=>
+  "East Asian Library - East Asian Library - Gest Periodicals",
+ "eastasian$wilhelm"=>
+  "East Asian Library - East Asian Library - gstwc East Asian:Wilhelm",
+ "eastasian$UNASSIGNED"=>
+  "East Asian Library - East Asian Library - UNASSIGNED location",
+ "online$cdl"=>"Electronic Access - Electronic Access - CDL Non-Reserves",
+ "online$cdlres"=>"Electronic Access - Electronic Access - CDL Reserves",
+ "online$elf1"=>
+  "Electronic Access - Electronic Access - elf1 Internet Resources",
+ "online$elf2"=>
+  "Electronic Access - Electronic Access - elf2 AccessLibWebComp",
+ "online$elf3"=>
+  "Electronic Access - Electronic Access - elf3 Permanent Access",
+ "online$elf4"=>"Electronic Access - Electronic Access - elf4 Dixon eBooks",
+ "online$etasrcp"=>
+  "Electronic Access - Electronic Access - ETAS Non Circ ReCAP",
+ "online$etas"=>"Electronic Access - Electronic Access - ETAS Non Circulating",
+ "online$UNASSIGNED"=>
+  "Electronic Access - Electronic Access - UNASSIGNED location",
+ "engineer$stacks"=>"Engineering Library - Engineering Library - Engineering",
+ "engineer$ast"=>"Engineering Library - Engineering Library - Engineering A",
+ "engineer$cat"=>
+  "Engineering Library - Engineering Library - Engineering Cataloging",
+ "engineer$circ"=>
+  "Engineering Library - Engineering Library - Engineering Circ",
+ "engineer$index"=>
+  "Engineering Library - Engineering Library - Engineering Indexes",
+ "engineer$ltop"=>
+  "Engineering Library - Engineering Library - Engineering Laptop",
+ "engineer$media"=>
+  "Engineering Library - Engineering Library - Engineering Media Collection",
+ "engineer$mic"=>
+  "Engineering Library - Engineering Library - Engineering Microforms",
+ "engineer$nb"=>
+  "Engineering Library - Engineering Library - Engineering New Book Shelf",
+ "engineer$ref"=>
+  "Engineering Library - Engineering Library - Engineering Reference",
+ "engineer$res"=>
+  "Engineering Library - Engineering Library - Engineering Reserve",
+ "engineer$str"=>"Engineering Library - Engineering Library - Engineering S",
+ "engineer$serial"=>
+  "Engineering Library - Engineering Library - Engineering Serials",
+ "engineer$resterm"=>
+  "Engineering Library - Engineering Library - Engineering Term Loan",
+ "engineer$theses"=>
+  "Engineering Library - Engineering Library - Engineering Theses",
+ "engineer$scc"=>
+  "Engineering Library - Engineering Library - scc Engin. Friend C Archv",
+ "engineer$UNASSIGNED"=>
+  "Engineering Library - Engineering Library - UNASSIGNED location",
+ "firestone$aas"=>
+  "Firestone Library - Firestone Library - aas Afri Amer St RR",
+ "firestone$clas"=>
+  "Firestone Library - Firestone Library - clas Classics Coll.",
+ "firestone$clasnc"=>
+  "Firestone Library - Firestone Library - clasnc Classics Non Circ",
+ "firestone$dixn"=>"Firestone Library - Firestone Library - dixn Dixon Books",
+ "firestone$docs"=>
+  "Firestone Library - Firestone Library - docs Gov. Documents",
+ "firestone$docsm"=>
+  "Firestone Library - Firestone Library - docsm Gov.Docs.Microforms",
+ "firestone$dra"=>
+  "Firestone Library - Firestone Library - dra Trustee RR Atlases",
+ "firestone$drrr"=>
+  "Firestone Library - Firestone Library - drrr Trustee RR ReadyRef",
+ "firestone$dr"=>"Firestone Library - Firestone Library - dr Trustee RR Ref.",
+ "firestone$dss"=>
+  "Firestone Library - Firestone Library - dss Data & Statis. Serv.",
+ "firestone$egsr"=>"Firestone Library - Firestone Library - egsr English GSR",
+ "firestone$fac"=>
+  "Firestone Library - Firestone Library - fac Faculty Publications",
+ "firestone$cat"=>
+  "Firestone Library - Firestone Library - Firestone Cataloging",
+ "firestone$circ"=>"Firestone Library - Firestone Library - Firestone Circ",
+ "firestone$stacks"=>
+  "Firestone Library - Firestone Library - Firestone Library",
+ "firestone$fis"=>
+  "Firestone Library - Firestone Library - fis French&Italian GSR",
+ "firestone$flmb"=>
+  "Firestone Library - Firestone Library - flmb Firestone Microforms",
+ "firestone$flm"=>
+  "Firestone Library - Firestone Library - flm Firestone Microforms",
+ "firestone$flmm"=>
+  "Firestone Library - Firestone Library - flmm Firestone Microforms",
+ "firestone$flmp"=>
+  "Firestone Library - Firestone Library - flmp Firestone Microforms",
+ "firestone$noncirc"=>
+  "Firestone Library - Firestone Library - fnc Firestone Non Circ",
+ "firestone$gestf"=>
+  "Firestone Library - Firestone Library - gestf Firestone Micro EA",
+ "firestone$gss"=>
+  "Firestone Library - Firestone Library - gss G&SS Research Coll",
+ "firestone$hldn"=>"Firestone Library - Firestone Library - hldn Holden Coll.",
+ "firestone$law"=>
+  "Firestone Library - Firestone Library - law Law Cases & Statutes",
+ "firestone$lrc"=>
+  "Firestone Library - Firestone Library - lrc Firestone Circ Desk",
+ "firestone$lrcpt"=>
+  "Firestone Library - Firestone Library - lrcpt Video Lib Res",
+ "firestone$lrcr"=>
+  "Firestone Library - Firestone Library - lrcr Video Lib Res",
+ "firestone$ltop"=>
+  "Firestone Library - Firestone Library - ltop Computer Media F",
+ "firestone$necnc"=>
+  "Firestone Library - Firestone Library - necnc Near East Non Circ",
+ "firestone$nec"=>"Firestone Library - Firestone Library - nec Near East Coll",
+ "firestone$nr"=>
+  "Firestone Library - Firestone Library - nr Newspaper Coll: Recent",
+ "firestone$pres"=>
+  "Firestone Library - Firestone Library - pres Preservation Office",
+ "firestone$prne"=>
+  "Firestone Library - Firestone Library - prne Near East Per. Coll.",
+ "firestone$pr"=>
+  "Firestone Library - Firestone Library - pr Periodicals Collection",
+ "firestone$raas"=>
+  "Firestone Library - Firestone Library - raas Afri Amer St Reserve",
+ "firestone$res3hr"=>
+  "Firestone Library - Firestone Library - resc Firestone 3 Hr Res",
+ "firestone$res24hr"=>
+  "Firestone Library - Firestone Library - reso Firestone 24 Hr Res",
+ "firestone$rrel"=>
+  "Firestone Library - Firestone Library - rrel Religion GSR: Res",
+ "firestone$rsc"=>
+  "Firestone Library - Firestone Library - rsc Classics GS: Res",
+ "firestone$rsd"=>
+  "Firestone Library - Firestone Library - rsd Germ. Lang. GSR: Res",
+ "firestone$rse"=>
+  "Firestone Library - Firestone Library - rse English GSR: Res",
+ "firestone$rsh"=>
+  "Firestone Library - Firestone Library - rsh History Reference Res",
+ "firestone$rslv"=>
+  "Firestone Library - Firestone Library - rslv Russ Stud GSR: Res",
+ "firestone$rsne"=>
+  "Firestone Library - Firestone Library - rsne Near East GSR: Res",
+ "firestone$rspc"=>
+  "Firestone Library - Firestone Library - rspc Comp.Lit GSR: Res",
+ "firestone$rssa"=>
+  "Firestone Library - Firestone Library - rssa Sociology GSR: Res",
+ "firestone$sc"=>"Firestone Library - Firestone Library - sc Classics GS",
+ "firestone$sd"=>"Firestone Library - Firestone Library - sd Germ. Lang. GSR",
+ "firestone$seref"=>
+  "Firestone Library - Firestone Library - seref Scribner Room: Ref.",
+ "firestone$se"=>"Firestone Library - Firestone Library - se Scribner Room",
+ "firestone$sh"=>
+  "Firestone Library - Firestone Library - sh History Reference",
+ "firestone$shs"=>
+  "Firestone Library - Firestone Library - shs Hellenic Studies RR",
+ "firestone$slav"=>
+  "Firestone Library - Firestone Library - slav Russian Studies GSR",
+ "firestone$sne"=>"Firestone Library - Firestone Library - sne Near East GSR",
+ "firestone$spc"=>"Firestone Library - Firestone Library - spc Comp. Lit. GSR",
+ "firestone$sps"=>
+  "Firestone Library - Firestone Library - sps Spanish&Portug. GSR",
+ "firestone$srel"=>"Firestone Library - Firestone Library - srel Religion GSR",
+ "firestone$ssa"=>"Firestone Library - Firestone Library - ssa Sociology GSR",
+ "firestone$sss"=>"Firestone Library - Firestone Library - sss History GS",
+ "firestone$trv"=>"Firestone Library - Firestone Library - trv Travel Guides",
+ "firestone$UNASSIGNED"=>
+  "Firestone Library - Firestone Library - UNASSIGNED location",
+ "firestone$un"=>
+  "Firestone Library - Firestone Library - un United Nations Coll.",
+ "firestone$vidl"=>
+  "Firestone Library - Firestone Library - vidl Firestone Circ Desk",
+ "firestone$vidlr"=>
+  "Firestone Library - Firestone Library - vidlr Video Lib Res",
+ "firestone$xlnc"=>
+  "Firestone Library - Firestone Library - xlnc Very large Non Circ",
+ "firestone$xl"=>"Firestone Library - Firestone Library - xl Very large books",
+ "firestone$zeiss"=>
+  "Firestone Library - Firestone Library - zeiss Zeiss Wildlife Coll.",
+ "annex$cat"=>"Forrestal Annex - Forrestal Annex - Annex Cataloging",
+ "annex$circ"=>"Forrestal Annex - Forrestal Annex - Annex Circ",
+ "annex$sct"=>"Forrestal Annex - Forrestal Annex - Annex Classics Theses",
+ "annex$set"=>"Forrestal Annex - Forrestal Annex - Annex English Theses",
+ "annex$sdt"=>"Forrestal Annex - Forrestal Annex - Annex German Theses",
+ "annex$sht"=>"Forrestal Annex - Forrestal Annex - Annex History Theses",
+ "annex$locked"=>"Forrestal Annex - Forrestal Annex - Annex Locked",
+ "annex$noncirc"=>"Forrestal Annex - Forrestal Annex - Annex Non-Circ",
+ "annex$spt"=>"Forrestal Annex - Forrestal Annex - Annex Philosophy Theses",
+ "annex$princeton"=>
+  "Forrestal Annex - Forrestal Annex - Annex Princeton Collection",
+ "annex$reserve"=>"Forrestal Annex - Forrestal Annex - Annex Reserve",
+ "annex$srt"=>
+  "Forrestal Annex - Forrestal Annex - Annex Romance Language Theses",
+ "annex$stacks"=>"Forrestal Annex - Forrestal Annex - Annex Stacks",
+ "annex$t"=>"Forrestal Annex - Forrestal Annex - Annex Theses Collection",
+ "annex$doc"=>"Forrestal Annex - Forrestal Annex - anxadoc Annex A Docs Stor",
+ "annex$fst"=>"Forrestal Annex - Forrestal Annex - anxafst Annex A Staging",
+ "annex$UNASSIGNED"=>"Forrestal Annex - Forrestal Annex - UNASSIGNED location",
  "plasma$stacks"=>
-  "Harold P. Furth Plasma Physics Library - Plasma Physics Library",
- "plasma$cat"=>"Harold P. Furth Plasma Physics Library - PPL Cataloging",
- "plasma$circ"=>"Harold P. Furth Plasma Physics Library - PPL Circ",
+  "Harold P. Furth Plasma Physics Library - Harold P. Furth Plasma Physics Library - Plasma Physics Library",
+ "plasma$cat"=>
+  "Harold P. Furth Plasma Physics Library - Harold P. Furth Plasma Physics Library - PPL Cataloging",
+ "plasma$circ"=>
+  "Harold P. Furth Plasma Physics Library - Harold P. Furth Plasma Physics Library - PPL Circ",
  "plasma$index"=>
-  "Harold P. Furth Plasma Physics Library - pplia PPL: Indexes & Abst",
+  "Harold P. Furth Plasma Physics Library - Harold P. Furth Plasma Physics Library - pplia PPL: Indexes & Abst",
  "plasma$la"=>
-  "Harold P. Furth Plasma Physics Library - pplla PPL: Seminar Room",
+  "Harold P. Furth Plasma Physics Library - Harold P. Furth Plasma Physics Library - pplla PPL: Seminar Room",
  "plasma$li"=>
-  "Harold P. Furth Plasma Physics Library - pplli PPL: Lib. Office",
+  "Harold P. Furth Plasma Physics Library - Harold P. Furth Plasma Physics Library - pplli PPL: Lib. Office",
  "plasma$nb"=>
-  "Harold P. Furth Plasma Physics Library - pplnb PPL: New Book Shelf",
+  "Harold P. Furth Plasma Physics Library - Harold P. Furth Plasma Physics Library - pplnb PPL: New Book Shelf",
  "plasma$ps"=>
-  "Harold P. Furth Plasma Physics Library - pplps PPL: Periodicals",
+  "Harold P. Furth Plasma Physics Library - Harold P. Furth Plasma Physics Library - pplps PPL: Periodicals",
  "plasma$rdr"=>
-  "Harold P. Furth Plasma Physics Library - pplrdr PPL: Tech. Reports",
- "plasma$ref"=>"Harold P. Furth Plasma Physics Library - pplrf PPL: Reference",
- "plasma$res"=>"Harold P. Furth Plasma Physics Library - pplr PPL: Reserve",
- "plasma$rr"=>"Harold P. Furth Plasma Physics Library - pplrr PPL: Ready Ref.",
- "plasma$serial"=>"Harold P. Furth Plasma Physics Library - ppls PPL: Serials",
- "plasma$theses"=>"Harold P. Furth Plasma Physics Library - pplt PPL: Theses",
+  "Harold P. Furth Plasma Physics Library - Harold P. Furth Plasma Physics Library - pplrdr PPL: Tech. Reports",
+ "plasma$ref"=>
+  "Harold P. Furth Plasma Physics Library - Harold P. Furth Plasma Physics Library - pplrf PPL: Reference",
+ "plasma$res"=>
+  "Harold P. Furth Plasma Physics Library - Harold P. Furth Plasma Physics Library - pplr PPL: Reserve",
+ "plasma$rr"=>
+  "Harold P. Furth Plasma Physics Library - Harold P. Furth Plasma Physics Library - pplrr PPL: Ready Ref.",
+ "plasma$serial"=>
+  "Harold P. Furth Plasma Physics Library - Harold P. Furth Plasma Physics Library - ppls PPL: Serials",
+ "plasma$theses"=>
+  "Harold P. Furth Plasma Physics Library - Harold P. Furth Plasma Physics Library - pplt PPL: Theses",
  "plasma$UNASSIGNED"=>
-  "Harold P. Furth Plasma Physics Library - UNASSIGNED location",
- "lewis$cat"=>"Lewis Library - Lewis Cataloging",
- "lewis$circ"=>"Lewis Library - Lewis Circ",
- "lewis$ltop"=>"Lewis Library - Lewis Laptop",
- "lewis$stacks"=>"Lewis Library - Lewis Library",
- "lewis$ref"=>"Lewis Library - Lewis Reference",
- "lewis$doc"=>"Lewis Library - scidoc Lewis: Documents",
- "lewis$efa"=>"Lewis Library - sciefa Lewis: E/F Atlases",
- "lewis$gis"=>"Lewis Library - scigis Lewis: GIS Center",
- "lewis$gr"=>"Lewis Library - scigr Lewis: Grad Reading",
- "lewis$laf"=>"Lewis Library - scilaf Lewis: Limited FHW",
- "lewis$lal"=>"Lewis Library - scilal Lewis: Limited Acc",
- "lewis$map"=>"Lewis Library - scimap Lewis: Map Coll.",
- "lewis$mapmc"=>"Lewis Library - scimc Lewis: Map MC",
- "lewis$mapmcm"=>"Lewis Library - scimcm Lewis Map MC Max",
- "lewis$mic"=>"Lewis Library - scimic Lewis: Microforms",
- "lewis$maplf"=>"Lewis Library - sciml Lewis: Map LF",
- "lewis$maplref"=>"Lewis Library - scimlrf Lewis Map LF Ref",
- "lewis$media"=>"Lewis Library - scimm Lewis: Multimedia",
- "lewis$nb"=>"Lewis Library - scinb Lewis: New Bk Shelf",
- "lewis$pam"=>"Lewis Library - scipam Lewis: Pamphlet",
- "lewis$ph"=>"Lewis Library - sciph Lewis: Peyton Obs",
- "lewis$refid"=>"Lewis Library - scirefl Lewis: Ref InfDsk",
- "lewis$res"=>"Lewis Library - scires Lewis: Course Res",
- "lewis$resterm"=>"Lewis Library - sciresp Lewis: Term Loan",
- "lewis$sudoc"=>"Lewis Library - scisd Lewis: SuDoc",
- "lewis$serial"=>"Lewis Library - sciss Lewis: Serials",
- "lewis$theses"=>"Lewis Library - scith Lewis: Theses",
- "lewis$UNASSIGNED"=>"Lewis Library - UNASSIGNED location",
- "marquand$ltop"=>"Marquand Library - ltopsa Computer Med - SA",
- "marquand$cat"=>"Marquand Library - Marquand Cataloging",
- "marquand$circ"=>"Marquand Library - Marquand Circ",
- "marquand$stacks"=>"Marquand Library - Marquand Library",
- "marquand$fesrf"=>"Marquand Library - safesrf Marquand: Tang RR",
- "marquand$mic"=>"Marquand Library - safi Marquand: Microforms",
- "marquand$saf"=>"Marquand Library - saf Marquand: Barr Ferree",
- "marquand$ms"=>"Marquand Library - sams Marquand: Manuscript",
- "marquand$msref"=>"Marquand Library - samsrf Marquand: MSS Ref.",
- "marquand$ph"=>"Marquand Library - saph Marquand Lib. Photog",
- "marquand$phref"=>"Marquand Library - saphrf Marquand: PhotoRef",
- "marquand$ref"=>"Marquand Library - sarf Marquand: Ref.",
- "marquand$res"=>"Marquand Library - sar Marquand: Reserve",
- "marquand$rp"=>"Marquand Library - sarp Marquand: Storage",
- "marquand$t"=>"Marquand Library - sat Marquand: RBk. Miscel",
- "marquand$wr"=>"Marquand Library - sawr Marquand: Workrm.",
- "marquand$x"=>"Marquand Library - sax Marquand: Rare Books",
- "marquand$UNASSIGNED"=>"Marquand Library - UNASSIGNED location",
- "mendel$av"=>"Mendel Music Library - Mendel Audio Visual",
- "mendel$cat"=>"Mendel Music Library - Mendel Cataloging",
- "mendel$circ"=>"Mendel Music Library - Mendel Circ",
- "mendel$facs"=>"Mendel Music Library - Mendel Facsimiles",
- "mendel$locked"=>"Mendel Music Library - Mendel Locked",
- "mendel$stacks"=>"Mendel Music Library - Mendel Music Library",
- "mendel$ref"=>"Mendel Music Library - Mendel Ref",
- "mendel$g"=>"Mendel Music Library - musg Music: Graduate Res.",
- "mendel$nb"=>"Mendel Music Library - musnb Mus.: New Bk. Shelf",
- "mendel$pe"=>"Mendel Music Library - muspe Music Periodicals",
- "mendel$rg"=>"Mendel Music Library - musrg Music: Reading Room",
- "mendel$res"=>"Mendel Music Library - musr Music: Reserve",
- "mendel$UNASSIGNED"=>"Mendel Music Library - UNASSIGNED location",
- "mudd$cat"=>"Mudd Manuscript Library - Mudd Cataloging",
- "mudd$circ"=>"Mudd Manuscript Library - Mudd Circ",
- "mudd$stacks"=>"Mudd Manuscript Library - Mudd Library",
- "mudd$mic"=>"Mudd Manuscript Library - mudf Mudd: Microforms",
- "mudd$prnc"=>"Mudd Manuscript Library - prnc Princetoniana Coll.",
- "mudd$UNASSIGNED"=>"Mudd Manuscript Library - UNASSIGNED location",
- "zobsolete$zpickup"=>"Obsolete Locations - .Choose a Pickup Location",
- "zobsolete$zelf"=>"Obsolete Locations - elf Online Resources",
- "zobsolete$zac"=>"Obsolete Locations - OBS ac American Civ.",
- "zobsolete$zanga"=>"Obsolete Locations - OBS anga",
- "zobsolete$zangb"=>"Obsolete Locations - OBS angb",
- "zobsolete$zarab"=>"Obsolete Locations - OBS arab Arabic Books",
- "zobsolete$zcat"=>"Obsolete Locations - OBS Cataloging",
- "zobsolete$zcirc"=>"Obsolete Locations - OBS Circ",
- "zobsolete$zcomc"=>"Obsolete Locations - OBS comc bec. DSS",
- "zobsolete$zcp"=>"Obsolete Locations - OBS cp East Asian:Period",
- "zobsolete$zdpa"=>"Obsolete Locations - OBS dpa DavidPatonColl",
- "zobsolete$zfol"=>"Obsolete Locations - OBS fol Folio Dbs",
- "zobsolete$zgst"=>"Obsolete Locations - OBS gst EastAsianLibrary",
- "zobsolete$zgstf"=>"Obsolete Locations - OBS gstf FrstneMicroEA",
- "zobsolete$zgstpe"=>"Obsolete Locations - OBS gstpe EastAsian:Per",
- "zobsolete$zgstpr"=>"Obsolete Locations - OBS gstpr EA:PermRes",
- "zobsolete$zhygpe"=>"Obsolete Locations - OBS hygpe EastAsian:Per",
- "zobsolete$zhygrare"=>"Obsolete Locations - OBS hygrare EA: Rare",
- "zobsolete$zindo"=>"Obsolete Locations - OBS indo Indo-Europ",
- "zobsolete$zir"=>"Obsolete Locations - OBS ir Indust.Rela.",
- "zobsolete$zlisc"=>"Obsolete Locations - OBS lisc Spoken Word",
- "zobsolete$zmagi"=>"Obsolete Locations - OBS magi Magi",
- "zobsolete$zmycn"=>"Obsolete Locations - OBS mycn Mycenaean",
- "zobsolete$zned"=>"Obsolete Locations - OBS ned Near East Dept. Coll.",
- "zobsolete$znew"=>"Obsolete Locations - OBS New Order Request",
- "zobsolete$zpf"=>"Obsolete Locations - OBS pf Pliny Fisk",
- "zobsolete$zpiaprpe"=>"Obsolete Locations - OBS piaprpe DEStokesLib",
- "zobsolete$zpic"=>"Obsolete Locations - OBS pic PrinInnCollege",
- "zobsolete$zpitn"=>"Obsolete Locations - OBS pitn Pitney Coll.",
- "zobsolete$zref"=>"Obsolete Locations - OBS Reference",
- "zobsolete$zrrs"=>"Obsolete Locations - OBS rrs Rom LSR: Res",
- "zobsolete$zrshp"=>"Obsolete Locations - OBS rshp Politics GSR:Res",
- "zobsolete$zrsnst"=>"Obsolete Locations - OBS rsnst AnthroGSR:Res",
- "zobsolete$zrsp"=>"Obsolete Locations - OBS rsp Phil. GSR:Res",
- "zobsolete$zrs"=>"Obsolete Locations - OBS rs Rom. Lang. SR",
- "zobsolete$zrsss"=>"Obsolete Locations - OBS rsss Hist.",
- "zobsolete$zrsx"=>"Obsolete Locations - OBS rsx Economics GSR:Res",
- "zobsolete$zsaphwr"=>"Obsolete Locations - OBS saphwr Marquand",
- "zobsolete$zscg"=>"Obsolete Locations - OBS scg Greek GS",
- "zobsolete$zscl"=>"Obsolete Locations - OBS scl Latin GS",
- "zobsolete$zscp"=>"Obsolete Locations - OBS scp Classics GS",
- "zobsolete$zsf"=>"Obsolete Locations - OBS sf Public Admin",
- "zobsolete$zsgae"=>"Obsolete Locations - OBS sgae Geosci:Oversize",
- "zobsolete$zsgca"=>"Obsolete Locations - OBS sgca Geosci.:Cage",
- "zobsolete$zsgcd"=>"Obsolete Locations - OBS sgcd Geosci:CD-ROMs",
- "zobsolete$zsgcdt"=>"Obsolete Locations - OBS sgcdt Geosci:DigMap",
- "zobsolete$zsgdi"=>"Obsolete Locations - OBS sgdi Geosci:Dict",
- "zobsolete$zsgdo"=>"Obsolete Locations - OBS sgdo Geosci: Docs",
- "zobsolete$zsgdr"=>"Obsolete Locations - OBS sgdr Geosci:DeskRef",
- "zobsolete$zsgf"=>"Obsolete Locations - OBS sgf Geosci:Microform",
- "zobsolete$zsg"=>"Obsolete Locations - OBS sg GeosciencesLib",
- "zobsolete$zsglo"=>"Obsolete Locations - OBS sglo Geosci:LibOff",
- "zobsolete$zsgma"=>"Obsolete Locations - OBS sgma Geosci:MapColl",
- "zobsolete$zsgrat"=>"Obsolete Locations - OBS sgrat Geosci:RefAtlas",
- "zobsolete$zsgr"=>"Obsolete Locations - OBS sgr Geosci:Reserve",
- "zobsolete$zsgrp"=>"Obsolete Locations - OBS sgrp Geosci:Perm.Res",
- "zobsolete$zsgsd"=>"Obsolete Locations - OBS sgsd Geosci:SuDocs",
- "zobsolete$zsgss"=>"Obsolete Locations - OBS sgss Geosci:Serials",
- "zobsolete$zshp"=>"Obsolete Locations - OBS shp Politics GSR",
- "zobsolete$zsk"=>"Obsolete Locations - OBS sk FineHallLibrary",
- "zobsolete$zskir"=>"Obsolete Locations - OBS skir FineLibLower",
- "zobsolete$zsla"=>"Obsolete Locations - OBS sla LatinAmerican",
- "zobsolete$zsmf"=>"Obsolete Locations - OBS smf FineLib:Microform",
- "zobsolete$zsm"=>"Obsolete Locations - OBS sm FineHallLibrary",
- "zobsolete$zsmgr"=>"Obsolete Locations - OBS smgr FineLib.Grad",
- "zobsolete$zsmir"=>"Obsolete Locations - OBS smir Fine:Serials",
- "zobsolete$zsmla"=>"Obsolete Locations - OBS smla FineLib:Lim.Acc",
- "zobsolete$zsmo"=>"Obsolete Locations - OBS smo FineLib:Oversize",
- "zobsolete$zsmpa"=>"Obsolete Locations - OBS smpa FineLib:Pamphlet",
- "zobsolete$zsmr"=>"Obsolete Locations - OBS smr FineLib:Reserve",
- "zobsolete$zsmsb"=>"Obsolete Locations - OBS smsb FineLib:Sh.Book",
- "zobsolete$zsmt"=>"Obsolete Locations - OBS smt FineLib:Theses",
- "zobsolete$zsoar"=>"Obsolete Locations - OBS soar Astro:Peyton",
- "zobsolete$zso"=>"Obsolete Locations - OBS so AstrophysicsLib",
- "zobsolete$zsocd"=>"Obsolete Locations - OBS socd Astro:CD-ROMs",
- "zobsolete$zsoj"=>"Obsolete Locations - OBS soj Astro:Serials",
- "zobsolete$zsojs"=>"Obsolete Locations - OBS sojs Astro: Jnl.",
- "zobsolete$zsolo"=>"Obsolete Locations - OBS solo Astro:LibOff.",
- "zobsolete$zsonb"=>"Obsolete Locations - OBS sonb Astro:SlideColl",
- "zobsolete$zsor"=>"Obsolete Locations - OBS sor Astro:Reserve",
- "zobsolete$zsoric"=>"Obsolete Locations - OBS soric Astro:Serials",
- "zobsolete$zsoris"=>"Obsolete Locations - OBS soris Astro:Serials",
- "zobsolete$zsot"=>"Obsolete Locations - OBS sot Astro:Theses",
- "zobsolete$zsphx"=>"Obsolete Locations - OBS sphx Marquand",
- "zobsolete$zspiap"=>"Obsolete Locations - OBS spiap PIAPR:Pamphlets",
- "zobsolete$zspl"=>"Obsolete Locations - OBS spl CompLit.GSR",
- "zobsolete$zsp"=>"Obsolete Locations - OBS sp PhilosophyGSR",
- "zobsolete$zsprcirc"=>"Obsolete Locations - OBS SPR",
- "zobsolete$zsqc"=>"Obsolete Locations - OBS sqc Chemistry:Closed",
- "zobsolete$zsq"=>"Obsolete Locations - OBS sq ChemistryLib",
- "zobsolete$zsqdr"=>"Obsolete Locations - OBS sqdr Chem.:DeskRef",
- "zobsolete$zsqf"=>"Obsolete Locations - OBS sqf Chemistry:Micro",
- "zobsolete$zsqp"=>"Obsolete Locations - OBS sqp Chemistry:Perm",
- "zobsolete$zsqpe"=>"Obsolete Locations - OBS sqpe Chemistry:Period",
- "zobsolete$zsqr"=>"Obsolete Locations - OBS sqr Chemistry:Reserve",
- "zobsolete$zsqt"=>"Obsolete Locations - OBS sqt Chemistry:Theses",
- "zobsolete$zssrcrr"=>"Obsolete Locations - OBS ssrcrr SSRC:ReadyRef",
- "zobsolete$zssrc"=>"Obsolete Locations - OBS ssrc Soc.Sci.Ref.",
- "zobsolete$zstlo"=>"Obsolete Locations - OBS stlo AnnexA:Engin",
- "zobsolete$zstre"=>"Obsolete Locations - OBS stre StreetLibrary",
- "zobsolete$zswf"=>"Obsolete Locations - OBS swf Psych:Micro",
- "zobsolete$zswla"=>"Obsolete Locations - OBS swla Psych LimitedAcc",
- "zobsolete$zswlo"=>"Obsolete Locations - OBS swlo Psych:LibrarOff",
- "zobsolete$zswpe"=>"Obsolete Locations - OBS swpe Psych:Per.",
- "zobsolete$zsw"=>"Obsolete Locations - OBS sw PsychologyLib",
- "zobsolete$zswrbb"=>"Obsolete Locations - OBS swrbb Psych:Bib",
- "zobsolete$zswrbo"=>"Obsolete Locations - OBS swrbo Psych:Bio",
- "zobsolete$zswrcs"=>"Obsolete Locations - OBS swrcs Psych:Career",
- "zobsolete$zswrdc"=>"Obsolete Locations - OBS swrdc Psych:Dict",
- "zobsolete$zswrdi"=>"Obsolete Locations - OBS swrdi Psych:DrugInfo",
- "zobsolete$zswrdr"=>"Obsolete Locations - OBS swrdr Psych:Direct",
- "zobsolete$zswre"=>"Obsolete Locations - OBS swre Psych:Ency",
- "zobsolete$zswrg"=>"Obsolete Locations - OBS swrg Psych:GenRef",
- "zobsolete$zswri"=>"Obsolete Locations - OBS swri Psych:Index",
- "zobsolete$zswr"=>"Obsolete Locations - OBS swr Psych:Reserve",
- "zobsolete$zswrt"=>"Obsolete Locations - OBS swrt Psych:Tests",
- "zobsolete$zswrw"=>"Obsolete Locations - OBS swrw Psych:Writing",
- "zobsolete$zsx"=>"Obsolete Locations - OBS sx Economics GSR",
- "zobsolete$zsxfa"=>"Obsolete Locations - OBS sxfa SSRC: Index",
- "zobsolete$zsxffi"=>"Obsolete Locations - OBS sxffi Pliny Fisk:Fin",
- "zobsolete$zsxffr"=>"Obsolete Locations - OBS sxffr Pliny Fisk:Fed",
- "zobsolete$zsxfit"=>"Obsolete Locations - OBS sxfit Pliny FiskIndex",
- "zobsolete$zsxf"=>"Obsolete Locations - OBS sxf Pliny Fisk",
- "zobsolete$zsxfrr"=>"Obsolete Locations - OBS sxfrr Pliny Fisk:RRef",
- "zobsolete$zsy"=>"Obsolete Locations - OBS sy Near East Coll",
- "zobsolete$zsys"=>"Obsolete Locations - OBS sys Near East Per",
- "zobsolete$zsz"=>"Obsolete Locations - OBS sz Biology Lib",
- "zobsolete$zszf"=>"Obsolete Locations - OBS szf Biology:Microf",
- "zobsolete$zszi"=>"Obsolete Locations - OBS szi Biology:Index",
- "zobsolete$zszli"=>"Obsolete Locations - OBS szli Biology:Lib",
- "zobsolete$zszof"=>"Obsolete Locations - OBS szof Biology:LibOff",
- "zobsolete$zszpe"=>"Obsolete Locations - OBS szpe Biology:Per",
- "zobsolete$zszp"=>"Obsolete Locations - OBS szp Fine:PermRes.",
- "zobsolete$zszpr"=>"Obsolete Locations - OBS szpr Biology:Per",
- "zobsolete$zszr"=>"Obsolete Locations - OBS szr Biology: Res",
- "zobsolete$zszrfa"=>"Obsolete Locations - OBS szrfa",
- "zobsolete$zszsb"=>"Obsolete Locations - OBS szsb Biology:Sh.w/Bk",
- "zobsolete$zszstor"=>"Obsolete Locations - OBS szstor",
- "zobsolete$zszt"=>"Obsolete Locations - OBS szt Biology:Theses",
- "zobsolete$zuesf"=>"Obsolete Locations - OBS uesf Arch:Micro",
- "zobsolete$zuesia"=>"Obsolete Locations - OBS uesia Arch: Index",
- "zobsolete$zuesp"=>"Obsolete Locations - OBS uesp Arch:PermRes",
- "zobsolete$zprob"=>"Obsolete Locations - OBS zprob Default Problem",
- "zobsolete$zssrcdc"=>"Obsolete Locations - ssrcdc DOCS: Census",
- "zobsolete$zssrcfo"=>"Obsolete Locations - ssrcfo DSS: Stat. Abs.",
- "zobsolete$UNASSIGNED"=>"Obsolete Locations - UNASSIGNED location",
- "zobsolete$zzzX"=>"Obsolete Locations - X Obsolete Locations",
- "zobsolete$zopac"=>"Obsolete Locations - ZOPAC Circulation",
- "rare$beac"=>"Rare Books and Special Collections - beac Rare Books: Beach",
- "rare$cook"=>"Rare Books and Special Collections - cook Rare Books: Cook",
- "rare$crare"=>"Rare Books and Special Collections - crare East Asian: Rare",
- "rare$ctsn"=>"Rare Books and Special Collections - ctsn Cotsen Children's C.",
+  "Harold P. Furth Plasma Physics Library - Harold P. Furth Plasma Physics Library - UNASSIGNED location",
+ "lewis$cat"=>"Lewis Library - Lewis Library - Lewis Cataloging",
+ "lewis$circ"=>"Lewis Library - Lewis Library - Lewis Circ",
+ "lewis$ltop"=>"Lewis Library - Lewis Library - Lewis Laptop",
+ "lewis$stacks"=>"Lewis Library - Lewis Library - Lewis Library",
+ "lewis$ref"=>"Lewis Library - Lewis Library - Lewis Reference",
+ "lewis$doc"=>"Lewis Library - Lewis Library - scidoc Lewis: Documents",
+ "lewis$efa"=>"Lewis Library - Lewis Library - sciefa Lewis: E/F Atlases",
+ "lewis$gis"=>"Lewis Library - Lewis Library - scigis Lewis: GIS Center",
+ "lewis$gr"=>"Lewis Library - Lewis Library - scigr Lewis: Grad Reading",
+ "lewis$laf"=>"Lewis Library - Lewis Library - scilaf Lewis: Limited FHW",
+ "lewis$lal"=>"Lewis Library - Lewis Library - scilal Lewis: Limited Acc",
+ "lewis$map"=>"Lewis Library - Lewis Library - scimap Lewis: Map Coll.",
+ "lewis$mapmc"=>"Lewis Library - Lewis Library - scimc Lewis: Map MC",
+ "lewis$mapmcm"=>"Lewis Library - Lewis Library - scimcm Lewis Map MC Max",
+ "lewis$mic"=>"Lewis Library - Lewis Library - scimic Lewis: Microforms",
+ "lewis$maplf"=>"Lewis Library - Lewis Library - sciml Lewis: Map LF",
+ "lewis$maplref"=>"Lewis Library - Lewis Library - scimlrf Lewis Map LF Ref",
+ "lewis$media"=>"Lewis Library - Lewis Library - scimm Lewis: Multimedia",
+ "lewis$nb"=>"Lewis Library - Lewis Library - scinb Lewis: New Bk Shelf",
+ "lewis$pam"=>"Lewis Library - Lewis Library - scipam Lewis: Pamphlet",
+ "lewis$ph"=>"Lewis Library - Lewis Library - sciph Lewis: Peyton Obs",
+ "lewis$refid"=>"Lewis Library - Lewis Library - scirefl Lewis: Ref InfDsk",
+ "lewis$res"=>"Lewis Library - Lewis Library - scires Lewis: Course Res",
+ "lewis$resterm"=>"Lewis Library - Lewis Library - sciresp Lewis: Term Loan",
+ "lewis$sudoc"=>"Lewis Library - Lewis Library - scisd Lewis: SuDoc",
+ "lewis$serial"=>"Lewis Library - Lewis Library - sciss Lewis: Serials",
+ "lewis$theses"=>"Lewis Library - Lewis Library - scith Lewis: Theses",
+ "lewis$UNASSIGNED"=>"Lewis Library - Lewis Library - UNASSIGNED location",
+ "marquand$ltop"=>
+  "Marquand Library - Marquand Library - ltopsa Computer Med - SA",
+ "marquand$cat"=>"Marquand Library - Marquand Library - Marquand Cataloging",
+ "marquand$circ"=>"Marquand Library - Marquand Library - Marquand Circ",
+ "marquand$stacks"=>"Marquand Library - Marquand Library - Marquand Library",
+ "marquand$fesrf"=>
+  "Marquand Library - Marquand Library - safesrf Marquand: Tang RR",
+ "marquand$mic"=>
+  "Marquand Library - Marquand Library - safi Marquand: Microforms",
+ "marquand$saf"=>
+  "Marquand Library - Marquand Library - saf Marquand: Barr Ferree",
+ "marquand$ms"=>
+  "Marquand Library - Marquand Library - sams Marquand: Manuscript",
+ "marquand$msref"=>
+  "Marquand Library - Marquand Library - samsrf Marquand: MSS Ref.",
+ "marquand$ph"=>
+  "Marquand Library - Marquand Library - saph Marquand Lib. Photog",
+ "marquand$phref"=>
+  "Marquand Library - Marquand Library - saphrf Marquand: PhotoRef",
+ "marquand$ref"=>"Marquand Library - Marquand Library - sarf Marquand: Ref.",
+ "marquand$res"=>"Marquand Library - Marquand Library - sar Marquand: Reserve",
+ "marquand$rp"=>"Marquand Library - Marquand Library - sarp Marquand: Storage",
+ "marquand$t"=>
+  "Marquand Library - Marquand Library - sat Marquand: RBk. Miscel",
+ "marquand$wr"=>"Marquand Library - Marquand Library - sawr Marquand: Workrm.",
+ "marquand$x"=>
+  "Marquand Library - Marquand Library - sax Marquand: Rare Books",
+ "marquand$UNASSIGNED"=>
+  "Marquand Library - Marquand Library - UNASSIGNED location",
+ "mendel$av"=>
+  "Mendel Music Library - Mendel Music Library - Mendel Audio Visual",
+ "mendel$cat"=>
+  "Mendel Music Library - Mendel Music Library - Mendel Cataloging",
+ "mendel$circ"=>"Mendel Music Library - Mendel Music Library - Mendel Circ",
+ "mendel$facs"=>
+  "Mendel Music Library - Mendel Music Library - Mendel Facsimiles",
+ "mendel$locked"=>
+  "Mendel Music Library - Mendel Music Library - Mendel Locked",
+ "mendel$stacks"=>
+  "Mendel Music Library - Mendel Music Library - Mendel Music Library",
+ "mendel$ref"=>"Mendel Music Library - Mendel Music Library - Mendel Ref",
+ "mendel$g"=>
+  "Mendel Music Library - Mendel Music Library - musg Music: Graduate Res.",
+ "mendel$nb"=>
+  "Mendel Music Library - Mendel Music Library - musnb Mus.: New Bk. Shelf",
+ "mendel$pe"=>
+  "Mendel Music Library - Mendel Music Library - muspe Music Periodicals",
+ "mendel$rg"=>
+  "Mendel Music Library - Mendel Music Library - musrg Music: Reading Room",
+ "mendel$res"=>
+  "Mendel Music Library - Mendel Music Library - musr Music: Reserve",
+ "mendel$UNASSIGNED"=>
+  "Mendel Music Library - Mendel Music Library - UNASSIGNED location",
+ "mudd$cat"=>
+  "Mudd Manuscript Library - Mudd Manuscript Library - Mudd Cataloging",
+ "mudd$circ"=>"Mudd Manuscript Library - Mudd Manuscript Library - Mudd Circ",
+ "mudd$stacks"=>
+  "Mudd Manuscript Library - Mudd Manuscript Library - Mudd Library",
+ "mudd$mic"=>
+  "Mudd Manuscript Library - Mudd Manuscript Library - mudf Mudd: Microforms",
+ "mudd$prnc"=>
+  "Mudd Manuscript Library - Mudd Manuscript Library - prnc Princetoniana Coll.",
+ "mudd$UNASSIGNED"=>
+  "Mudd Manuscript Library - Mudd Manuscript Library - UNASSIGNED location",
+ "zobsolete$zpickup"=>
+  "Obsolete Locations - Obsolete Locations - .Choose a Pickup Location",
+ "zobsolete$zelf"=>
+  "Obsolete Locations - Obsolete Locations - elf Online Resources",
+ "zobsolete$zac"=>
+  "Obsolete Locations - Obsolete Locations - OBS ac American Civ.",
+ "zobsolete$zanga"=>"Obsolete Locations - Obsolete Locations - OBS anga",
+ "zobsolete$zangb"=>"Obsolete Locations - Obsolete Locations - OBS angb",
+ "zobsolete$zarab"=>
+  "Obsolete Locations - Obsolete Locations - OBS arab Arabic Books",
+ "zobsolete$zcat"=>"Obsolete Locations - Obsolete Locations - OBS Cataloging",
+ "zobsolete$zcirc"=>"Obsolete Locations - Obsolete Locations - OBS Circ",
+ "zobsolete$zcomc"=>
+  "Obsolete Locations - Obsolete Locations - OBS comc bec. DSS",
+ "zobsolete$zcp"=>
+  "Obsolete Locations - Obsolete Locations - OBS cp East Asian:Period",
+ "zobsolete$zdpa"=>
+  "Obsolete Locations - Obsolete Locations - OBS dpa DavidPatonColl",
+ "zobsolete$zfol"=>
+  "Obsolete Locations - Obsolete Locations - OBS fol Folio Dbs",
+ "zobsolete$zgst"=>
+  "Obsolete Locations - Obsolete Locations - OBS gst EastAsianLibrary",
+ "zobsolete$zgstf"=>
+  "Obsolete Locations - Obsolete Locations - OBS gstf FrstneMicroEA",
+ "zobsolete$zgstpe"=>
+  "Obsolete Locations - Obsolete Locations - OBS gstpe EastAsian:Per",
+ "zobsolete$zgstpr"=>
+  "Obsolete Locations - Obsolete Locations - OBS gstpr EA:PermRes",
+ "zobsolete$zhygpe"=>
+  "Obsolete Locations - Obsolete Locations - OBS hygpe EastAsian:Per",
+ "zobsolete$zhygrare"=>
+  "Obsolete Locations - Obsolete Locations - OBS hygrare EA: Rare",
+ "zobsolete$zindo"=>
+  "Obsolete Locations - Obsolete Locations - OBS indo Indo-Europ",
+ "zobsolete$zir"=>
+  "Obsolete Locations - Obsolete Locations - OBS ir Indust.Rela.",
+ "zobsolete$zlisc"=>
+  "Obsolete Locations - Obsolete Locations - OBS lisc Spoken Word",
+ "zobsolete$zmagi"=>"Obsolete Locations - Obsolete Locations - OBS magi Magi",
+ "zobsolete$zmycn"=>
+  "Obsolete Locations - Obsolete Locations - OBS mycn Mycenaean",
+ "zobsolete$zned"=>
+  "Obsolete Locations - Obsolete Locations - OBS ned Near East Dept. Coll.",
+ "zobsolete$znew"=>
+  "Obsolete Locations - Obsolete Locations - OBS New Order Request",
+ "zobsolete$zpf"=>
+  "Obsolete Locations - Obsolete Locations - OBS pf Pliny Fisk",
+ "zobsolete$zpiaprpe"=>
+  "Obsolete Locations - Obsolete Locations - OBS piaprpe DEStokesLib",
+ "zobsolete$zpic"=>
+  "Obsolete Locations - Obsolete Locations - OBS pic PrinInnCollege",
+ "zobsolete$zpitn"=>
+  "Obsolete Locations - Obsolete Locations - OBS pitn Pitney Coll.",
+ "zobsolete$zref"=>"Obsolete Locations - Obsolete Locations - OBS Reference",
+ "zobsolete$zrrs"=>
+  "Obsolete Locations - Obsolete Locations - OBS rrs Rom LSR: Res",
+ "zobsolete$zrshp"=>
+  "Obsolete Locations - Obsolete Locations - OBS rshp Politics GSR:Res",
+ "zobsolete$zrsnst"=>
+  "Obsolete Locations - Obsolete Locations - OBS rsnst AnthroGSR:Res",
+ "zobsolete$zrsp"=>
+  "Obsolete Locations - Obsolete Locations - OBS rsp Phil. GSR:Res",
+ "zobsolete$zrs"=>
+  "Obsolete Locations - Obsolete Locations - OBS rs Rom. Lang. SR",
+ "zobsolete$zrsss"=>"Obsolete Locations - Obsolete Locations - OBS rsss Hist.",
+ "zobsolete$zrsx"=>
+  "Obsolete Locations - Obsolete Locations - OBS rsx Economics GSR:Res",
+ "zobsolete$zsaphwr"=>
+  "Obsolete Locations - Obsolete Locations - OBS saphwr Marquand",
+ "zobsolete$zscg"=>
+  "Obsolete Locations - Obsolete Locations - OBS scg Greek GS",
+ "zobsolete$zscl"=>
+  "Obsolete Locations - Obsolete Locations - OBS scl Latin GS",
+ "zobsolete$zscp"=>
+  "Obsolete Locations - Obsolete Locations - OBS scp Classics GS",
+ "zobsolete$zsf"=>
+  "Obsolete Locations - Obsolete Locations - OBS sf Public Admin",
+ "zobsolete$zsgae"=>
+  "Obsolete Locations - Obsolete Locations - OBS sgae Geosci:Oversize",
+ "zobsolete$zsgca"=>
+  "Obsolete Locations - Obsolete Locations - OBS sgca Geosci.:Cage",
+ "zobsolete$zsgcd"=>
+  "Obsolete Locations - Obsolete Locations - OBS sgcd Geosci:CD-ROMs",
+ "zobsolete$zsgcdt"=>
+  "Obsolete Locations - Obsolete Locations - OBS sgcdt Geosci:DigMap",
+ "zobsolete$zsgdi"=>
+  "Obsolete Locations - Obsolete Locations - OBS sgdi Geosci:Dict",
+ "zobsolete$zsgdo"=>
+  "Obsolete Locations - Obsolete Locations - OBS sgdo Geosci: Docs",
+ "zobsolete$zsgdr"=>
+  "Obsolete Locations - Obsolete Locations - OBS sgdr Geosci:DeskRef",
+ "zobsolete$zsgf"=>
+  "Obsolete Locations - Obsolete Locations - OBS sgf Geosci:Microform",
+ "zobsolete$zsg"=>
+  "Obsolete Locations - Obsolete Locations - OBS sg GeosciencesLib",
+ "zobsolete$zsglo"=>
+  "Obsolete Locations - Obsolete Locations - OBS sglo Geosci:LibOff",
+ "zobsolete$zsgma"=>
+  "Obsolete Locations - Obsolete Locations - OBS sgma Geosci:MapColl",
+ "zobsolete$zsgrat"=>
+  "Obsolete Locations - Obsolete Locations - OBS sgrat Geosci:RefAtlas",
+ "zobsolete$zsgr"=>
+  "Obsolete Locations - Obsolete Locations - OBS sgr Geosci:Reserve",
+ "zobsolete$zsgrp"=>
+  "Obsolete Locations - Obsolete Locations - OBS sgrp Geosci:Perm.Res",
+ "zobsolete$zsgsd"=>
+  "Obsolete Locations - Obsolete Locations - OBS sgsd Geosci:SuDocs",
+ "zobsolete$zsgss"=>
+  "Obsolete Locations - Obsolete Locations - OBS sgss Geosci:Serials",
+ "zobsolete$zshp"=>
+  "Obsolete Locations - Obsolete Locations - OBS shp Politics GSR",
+ "zobsolete$zsk"=>
+  "Obsolete Locations - Obsolete Locations - OBS sk FineHallLibrary",
+ "zobsolete$zskir"=>
+  "Obsolete Locations - Obsolete Locations - OBS skir FineLibLower",
+ "zobsolete$zsla"=>
+  "Obsolete Locations - Obsolete Locations - OBS sla LatinAmerican",
+ "zobsolete$zsmf"=>
+  "Obsolete Locations - Obsolete Locations - OBS smf FineLib:Microform",
+ "zobsolete$zsm"=>
+  "Obsolete Locations - Obsolete Locations - OBS sm FineHallLibrary",
+ "zobsolete$zsmgr"=>
+  "Obsolete Locations - Obsolete Locations - OBS smgr FineLib.Grad",
+ "zobsolete$zsmir"=>
+  "Obsolete Locations - Obsolete Locations - OBS smir Fine:Serials",
+ "zobsolete$zsmla"=>
+  "Obsolete Locations - Obsolete Locations - OBS smla FineLib:Lim.Acc",
+ "zobsolete$zsmo"=>
+  "Obsolete Locations - Obsolete Locations - OBS smo FineLib:Oversize",
+ "zobsolete$zsmpa"=>
+  "Obsolete Locations - Obsolete Locations - OBS smpa FineLib:Pamphlet",
+ "zobsolete$zsmr"=>
+  "Obsolete Locations - Obsolete Locations - OBS smr FineLib:Reserve",
+ "zobsolete$zsmsb"=>
+  "Obsolete Locations - Obsolete Locations - OBS smsb FineLib:Sh.Book",
+ "zobsolete$zsmt"=>
+  "Obsolete Locations - Obsolete Locations - OBS smt FineLib:Theses",
+ "zobsolete$zsoar"=>
+  "Obsolete Locations - Obsolete Locations - OBS soar Astro:Peyton",
+ "zobsolete$zso"=>
+  "Obsolete Locations - Obsolete Locations - OBS so AstrophysicsLib",
+ "zobsolete$zsocd"=>
+  "Obsolete Locations - Obsolete Locations - OBS socd Astro:CD-ROMs",
+ "zobsolete$zsoj"=>
+  "Obsolete Locations - Obsolete Locations - OBS soj Astro:Serials",
+ "zobsolete$zsojs"=>
+  "Obsolete Locations - Obsolete Locations - OBS sojs Astro: Jnl.",
+ "zobsolete$zsolo"=>
+  "Obsolete Locations - Obsolete Locations - OBS solo Astro:LibOff.",
+ "zobsolete$zsonb"=>
+  "Obsolete Locations - Obsolete Locations - OBS sonb Astro:SlideColl",
+ "zobsolete$zsor"=>
+  "Obsolete Locations - Obsolete Locations - OBS sor Astro:Reserve",
+ "zobsolete$zsoric"=>
+  "Obsolete Locations - Obsolete Locations - OBS soric Astro:Serials",
+ "zobsolete$zsoris"=>
+  "Obsolete Locations - Obsolete Locations - OBS soris Astro:Serials",
+ "zobsolete$zsot"=>
+  "Obsolete Locations - Obsolete Locations - OBS sot Astro:Theses",
+ "zobsolete$zsphx"=>
+  "Obsolete Locations - Obsolete Locations - OBS sphx Marquand",
+ "zobsolete$zspiap"=>
+  "Obsolete Locations - Obsolete Locations - OBS spiap PIAPR:Pamphlets",
+ "zobsolete$zspl"=>
+  "Obsolete Locations - Obsolete Locations - OBS spl CompLit.GSR",
+ "zobsolete$zsp"=>
+  "Obsolete Locations - Obsolete Locations - OBS sp PhilosophyGSR",
+ "zobsolete$zsprcirc"=>"Obsolete Locations - Obsolete Locations - OBS SPR",
+ "zobsolete$zsqc"=>
+  "Obsolete Locations - Obsolete Locations - OBS sqc Chemistry:Closed",
+ "zobsolete$zsq"=>
+  "Obsolete Locations - Obsolete Locations - OBS sq ChemistryLib",
+ "zobsolete$zsqdr"=>
+  "Obsolete Locations - Obsolete Locations - OBS sqdr Chem.:DeskRef",
+ "zobsolete$zsqf"=>
+  "Obsolete Locations - Obsolete Locations - OBS sqf Chemistry:Micro",
+ "zobsolete$zsqp"=>
+  "Obsolete Locations - Obsolete Locations - OBS sqp Chemistry:Perm",
+ "zobsolete$zsqpe"=>
+  "Obsolete Locations - Obsolete Locations - OBS sqpe Chemistry:Period",
+ "zobsolete$zsqr"=>
+  "Obsolete Locations - Obsolete Locations - OBS sqr Chemistry:Reserve",
+ "zobsolete$zsqt"=>
+  "Obsolete Locations - Obsolete Locations - OBS sqt Chemistry:Theses",
+ "zobsolete$zssrcrr"=>
+  "Obsolete Locations - Obsolete Locations - OBS ssrcrr SSRC:ReadyRef",
+ "zobsolete$zssrc"=>
+  "Obsolete Locations - Obsolete Locations - OBS ssrc Soc.Sci.Ref.",
+ "zobsolete$zstlo"=>
+  "Obsolete Locations - Obsolete Locations - OBS stlo AnnexA:Engin",
+ "zobsolete$zstre"=>
+  "Obsolete Locations - Obsolete Locations - OBS stre StreetLibrary",
+ "zobsolete$zswf"=>
+  "Obsolete Locations - Obsolete Locations - OBS swf Psych:Micro",
+ "zobsolete$zswla"=>
+  "Obsolete Locations - Obsolete Locations - OBS swla Psych LimitedAcc",
+ "zobsolete$zswlo"=>
+  "Obsolete Locations - Obsolete Locations - OBS swlo Psych:LibrarOff",
+ "zobsolete$zswpe"=>
+  "Obsolete Locations - Obsolete Locations - OBS swpe Psych:Per.",
+ "zobsolete$zsw"=>
+  "Obsolete Locations - Obsolete Locations - OBS sw PsychologyLib",
+ "zobsolete$zswrbb"=>
+  "Obsolete Locations - Obsolete Locations - OBS swrbb Psych:Bib",
+ "zobsolete$zswrbo"=>
+  "Obsolete Locations - Obsolete Locations - OBS swrbo Psych:Bio",
+ "zobsolete$zswrcs"=>
+  "Obsolete Locations - Obsolete Locations - OBS swrcs Psych:Career",
+ "zobsolete$zswrdc"=>
+  "Obsolete Locations - Obsolete Locations - OBS swrdc Psych:Dict",
+ "zobsolete$zswrdi"=>
+  "Obsolete Locations - Obsolete Locations - OBS swrdi Psych:DrugInfo",
+ "zobsolete$zswrdr"=>
+  "Obsolete Locations - Obsolete Locations - OBS swrdr Psych:Direct",
+ "zobsolete$zswre"=>
+  "Obsolete Locations - Obsolete Locations - OBS swre Psych:Ency",
+ "zobsolete$zswrg"=>
+  "Obsolete Locations - Obsolete Locations - OBS swrg Psych:GenRef",
+ "zobsolete$zswri"=>
+  "Obsolete Locations - Obsolete Locations - OBS swri Psych:Index",
+ "zobsolete$zswr"=>
+  "Obsolete Locations - Obsolete Locations - OBS swr Psych:Reserve",
+ "zobsolete$zswrt"=>
+  "Obsolete Locations - Obsolete Locations - OBS swrt Psych:Tests",
+ "zobsolete$zswrw"=>
+  "Obsolete Locations - Obsolete Locations - OBS swrw Psych:Writing",
+ "zobsolete$zsx"=>
+  "Obsolete Locations - Obsolete Locations - OBS sx Economics GSR",
+ "zobsolete$zsxfa"=>
+  "Obsolete Locations - Obsolete Locations - OBS sxfa SSRC: Index",
+ "zobsolete$zsxffi"=>
+  "Obsolete Locations - Obsolete Locations - OBS sxffi Pliny Fisk:Fin",
+ "zobsolete$zsxffr"=>
+  "Obsolete Locations - Obsolete Locations - OBS sxffr Pliny Fisk:Fed",
+ "zobsolete$zsxfit"=>
+  "Obsolete Locations - Obsolete Locations - OBS sxfit Pliny FiskIndex",
+ "zobsolete$zsxf"=>
+  "Obsolete Locations - Obsolete Locations - OBS sxf Pliny Fisk",
+ "zobsolete$zsxfrr"=>
+  "Obsolete Locations - Obsolete Locations - OBS sxfrr Pliny Fisk:RRef",
+ "zobsolete$zsy"=>
+  "Obsolete Locations - Obsolete Locations - OBS sy Near East Coll",
+ "zobsolete$zsys"=>
+  "Obsolete Locations - Obsolete Locations - OBS sys Near East Per",
+ "zobsolete$zsz"=>
+  "Obsolete Locations - Obsolete Locations - OBS sz Biology Lib",
+ "zobsolete$zszf"=>
+  "Obsolete Locations - Obsolete Locations - OBS szf Biology:Microf",
+ "zobsolete$zszi"=>
+  "Obsolete Locations - Obsolete Locations - OBS szi Biology:Index",
+ "zobsolete$zszli"=>
+  "Obsolete Locations - Obsolete Locations - OBS szli Biology:Lib",
+ "zobsolete$zszof"=>
+  "Obsolete Locations - Obsolete Locations - OBS szof Biology:LibOff",
+ "zobsolete$zszpe"=>
+  "Obsolete Locations - Obsolete Locations - OBS szpe Biology:Per",
+ "zobsolete$zszp"=>
+  "Obsolete Locations - Obsolete Locations - OBS szp Fine:PermRes.",
+ "zobsolete$zszpr"=>
+  "Obsolete Locations - Obsolete Locations - OBS szpr Biology:Per",
+ "zobsolete$zszr"=>
+  "Obsolete Locations - Obsolete Locations - OBS szr Biology: Res",
+ "zobsolete$zszrfa"=>"Obsolete Locations - Obsolete Locations - OBS szrfa",
+ "zobsolete$zszsb"=>
+  "Obsolete Locations - Obsolete Locations - OBS szsb Biology:Sh.w/Bk",
+ "zobsolete$zszstor"=>"Obsolete Locations - Obsolete Locations - OBS szstor",
+ "zobsolete$zszt"=>
+  "Obsolete Locations - Obsolete Locations - OBS szt Biology:Theses",
+ "zobsolete$zuesf"=>
+  "Obsolete Locations - Obsolete Locations - OBS uesf Arch:Micro",
+ "zobsolete$zuesia"=>
+  "Obsolete Locations - Obsolete Locations - OBS uesia Arch: Index",
+ "zobsolete$zuesp"=>
+  "Obsolete Locations - Obsolete Locations - OBS uesp Arch:PermRes",
+ "zobsolete$zprob"=>
+  "Obsolete Locations - Obsolete Locations - OBS zprob Default Problem",
+ "zobsolete$zssrcdc"=>
+  "Obsolete Locations - Obsolete Locations - ssrcdc DOCS: Census",
+ "zobsolete$zssrcfo"=>
+  "Obsolete Locations - Obsolete Locations - ssrcfo DSS: Stat. Abs.",
+ "zobsolete$UNASSIGNED"=>
+  "Obsolete Locations - Obsolete Locations - UNASSIGNED location",
+ "zobsolete$zzzX"=>
+  "Obsolete Locations - Obsolete Locations - X Obsolete Locations",
+ "zobsolete$zopac"=>
+  "Obsolete Locations - Obsolete Locations - ZOPAC Circulation",
+ "rare$beac"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - beac Rare Books: Beach",
+ "rare$cook"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - cook Rare Books: Cook",
+ "rare$crare"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - crare East Asian: Rare",
+ "rare$ctsn"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - ctsn Cotsen Children's C.",
  "rare$ctsnrf"=>
-  "Rare Books and Special Collections - ctsnrf Cotsen Child: Ref",
- "rare$ed"=>"Rare Books and Special Collections - ed Rare Books: Edwards",
- "rare$exb"=>"Rare Books and Special Collections - exb Rare Books: Dulles Rf",
- "rare$exca"=>"Rare Books and Special Collections - exca Rare Books: Carton",
- "rare$exc"=>"Rare Books and Special Collections - exc Rare Books: O'Connell",
- "rare$exf"=>"Rare Books and Special Collections - exf Rare Books: Fable",
- "rare$exho"=>"Rare Books and Special Collections - exho Rare Books: Holden",
- "rare$exi"=>"Rare Books and Special Collections - exi Rare Books: Incunab.",
- "rare$exka"=>"Rare Books and Special Collections - exka Rare Books: Kane",
- "rare$exki"=>"Rare Books and Special Collections - exki Rare Books: Kienbus.",
- "rare$exl"=>"Rare Books and Special Collections - exl Rare Books: Lamb",
- "rare$exme"=>"Rare Books and Special Collections - exme Rare Books: Metzdorf",
- "rare$exov"=>"Rare Books and Special Collections - exov Rare Books: Oversize",
- "rare$expa"=>"Rare Books and Special Collections - expa Rare Books: Parrish",
- "rare$ex"=>"Rare Books and Special Collections - ex Rare Books",
- "rare$exrc"=>"Rare Books and Special Collections - exrc Rare Books: Rockey",
- "rare$exrl"=>"Rare Books and Special Collections - exrl Rare Books: Milberg",
- "rare$extr"=>"Rare Books and Special Collections - extr Rare Books: Transfer",
- "rare$extsf"=>"Rare Books and Special Collections - extsf Rare Books: TS Ref",
- "rare$exv"=>"Rare Books and Special Collections - exv Rare Books: Vandevent",
- "rare$exw"=>"Rare Books and Special Collections - exw Rare Books: Weber",
- "rare$ga"=>"Rare Books and Special Collections - ga Graphic Arts",
- "rare$garf"=>"Rare Books and Special Collections - garf Graphic Arts: Ref",
- "rare$gax"=>"Rare Books and Special Collections - gax Graphic Arts",
+  "Rare Books and Special Collections - Rare Books and Special Collections - ctsnrf Cotsen Child: Ref",
+ "rare$ed"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - ed Rare Books: Edwards",
+ "rare$exb"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - exb Rare Books: Dulles Rf",
+ "rare$exca"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - exca Rare Books: Carton",
+ "rare$exc"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - exc Rare Books: O'Connell",
+ "rare$exf"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - exf Rare Books: Fable",
+ "rare$exho"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - exho Rare Books: Holden",
+ "rare$exi"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - exi Rare Books: Incunab.",
+ "rare$exka"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - exka Rare Books: Kane",
+ "rare$exki"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - exki Rare Books: Kienbus.",
+ "rare$exl"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - exl Rare Books: Lamb",
+ "rare$exme"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - exme Rare Books: Metzdorf",
+ "rare$exov"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - exov Rare Books: Oversize",
+ "rare$expa"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - expa Rare Books: Parrish",
+ "rare$ex"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - ex Rare Books",
+ "rare$exrc"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - exrc Rare Books: Rockey",
+ "rare$exrl"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - exrl Rare Books: Milberg",
+ "rare$extr"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - extr Rare Books: Transfer",
+ "rare$extsf"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - extsf Rare Books: TS Ref",
+ "rare$exv"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - exv Rare Books: Vandevent",
+ "rare$exw"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - exw Rare Books: Weber",
+ "rare$ga"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - ga Graphic Arts",
+ "rare$garf"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - garf Graphic Arts: Ref",
+ "rare$gax"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - gax Graphic Arts",
  "rare$gestrare"=>
-  "Rare Books and Special Collections - gestrare East Asian: Rare",
- "rare$hsvc"=>"Rare Books and Special Collections - hsvc Cotsen South East",
- "rare$hsve"=>"Rare Books and Special Collections - hsve EastAsian South East",
- "rare$hsvg"=>"Rare Books and Special Collections - hsvg GA South East",
- "rare$hsvm"=>"Rare Books and Special Collections - hsvm MSS South East",
- "rare$hsvn"=>"Rare Books and Special Collections - hsvn Num South East",
- "rare$hsvp"=>"Rare Books and Special Collections - hsvp HistMaps South East",
- "rare$hsvr"=>"Rare Books and Special Collections - hsvr RareBooks South East",
- "rare$hsvw"=>"Rare Books and Special Collections - hsvw WestAmer South East",
- "rare$htn"=>"Rare Books and Special Collections - htn Rare Books: Hutton",
+  "Rare Books and Special Collections - Rare Books and Special Collections - gestrare East Asian: Rare",
+ "rare$hsvc"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - hsvc Cotsen South East",
+ "rare$hsve"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - hsve EastAsian South East",
+ "rare$hsvg"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - hsvg GA South East",
+ "rare$hsvm"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - hsvm MSS South East",
+ "rare$hsvn"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - hsvn Num South East",
+ "rare$hsvp"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - hsvp HistMaps South East",
+ "rare$hsvr"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - hsvr RareBooks South East",
+ "rare$hsvw"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - hsvw WestAmer South East",
+ "rare$htn"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - htn Rare Books: Hutton",
  "rare$hycrare"=>
-  "Rare Books and Special Collections - hycrare East Asian: Rare",
+  "Rare Books and Special Collections - Rare Books and Special Collections - hycrare East Asian: Rare",
  "rare$hyjrare"=>
-  "Rare Books and Special Collections - hyjrare East Asian: Rare",
+  "Rare Books and Special Collections - Rare Books and Special Collections - hyjrare East Asian: Rare",
  "rare$hykrare"=>
-  "Rare Books and Special Collections - hykrare East Asian:Rare",
- "rare$jrare"=>"Rare Books and Special Collections - jrare East Asian: Rare",
- "rare$krare"=>"Rare Books and Special Collections - krare East Asian: Rare",
- "rare$map"=>"Rare Books and Special Collections - map Rare Books: Map",
- "rare$mss"=>"Rare Books and Special Collections - mss Rare Books: Manuscr.",
- "rare$njpg"=>"Rare Books and Special Collections - njpg Special Collections",
- "rare$num"=>"Rare Books and Special Collections - num Rare Books: Numismat",
+  "Rare Books and Special Collections - Rare Books and Special Collections - hykrare East Asian:Rare",
+ "rare$jrare"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - jrare East Asian: Rare",
+ "rare$krare"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - krare East Asian: Rare",
+ "rare$map"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - map Rare Books: Map",
+ "rare$mss"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - mss Rare Books: Manuscr.",
+ "rare$njpg"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - njpg Special Collections",
+ "rare$num"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - num Rare Books: Numismat",
  "rare$numrf"=>
-  "Rare Books and Special Collections - numrf Rare Bks: Numis.Ref",
- "rare$pb"=>"Rare Books and Special Collections - pb Rare Books: Prin.Boro.",
- "rare$ptt"=>"Rare Books and Special Collections - ptt Rare Books: Patterson",
- "rare$cat"=>"Rare Books and Special Collections - Rare Books Cataloging",
- "rare$circ"=>"Rare Books and Special Collections - Rare Circ",
- "rare$rht"=>"Rare Books and Special Collections - rht Rare Books: Taylor",
- "rare$thx"=>"Rare Books and Special Collections - thx Rare Books: Theatre",
- "rare$thxr"=>"Rare Books and Special Collections - thxr Rare Books: Theat. R",
- "rare$UNASSIGNED"=>"Rare Books and Special Collections - UNASSIGNED location",
- "rare$vrg"=>"Rare Books and Special Collections - vrg Rare Books: Morgan",
- "rare$wa"=>"Rare Books and Special Collections - wa Rare Books: W. Amer.",
- "rare$warf"=>"Rare Books and Special Collections - warf W. Amer.: Ref",
- "rare$whs"=>"Rare Books and Special Collections - whs Rare Books: Scheide",
- "rare$wit"=>"Rare Books and Special Collections - wit Rare Books: Withersp.",
- "rare$w"=>"Rare Books and Special Collections - w Rare Books: Pierson",
- "recap$gp"=>"ReCAP - rcpgp RECAP Gov Docs",
- "recap$jq"=>"ReCAP - rcpjq RECAP JSTOR Rest",
- "recap$pa"=>"ReCAP - rcppa RECAP",
- "recap$pb"=>"ReCAP - rcppb RECAP Firestone Use",
- "recap$pe"=>"ReCAP - rcppe RECAP Restricted",
- "recap$pf"=>"ReCAP - rcppf RECAP Microforms",
- "recap$pg"=>"ReCAP - rcppg RECAP RBSC",
- "recap$ph"=>"ReCAP - rcpph RECAP Mudd Lib.",
- "recap$pj"=>"ReCAP - rcppj RECAP Marq. Lib.",
- "recap$pk"=>"ReCAP - rcppk RECAP Music Lib.",
- "recap$pl"=>"ReCAP - rcppl RECAP East Asian",
- "recap$pm"=>"ReCAP - rcppm RECAP Stokes Lib",
- "recap$pn"=>"ReCAP - rcppn RECAP Lewis Library",
- "recap$pq"=>"ReCAP - rcppq RECAP PlasmaPhysics",
- "recap$ps"=>"ReCAP - rcpps RECAP Lewis Rare",
- "recap$pt"=>"ReCAP - rcppt RECAP Tech Reports",
- "recap$pw"=>"ReCAP - rcppw RECAP Architecture",
- "recap$pz"=>"ReCAP - rcppz RECAP Marquand Rare",
- "recap$qb"=>"ReCAP - rcpqb RECAP NoEDD",
- "recap$qk"=>"ReCAP - rcpqk RECAP Music Lib.",
- "recap$ql"=>"ReCAP - rcpql RECAP EA Microforms",
- "recap$qv"=>"ReCAP - rcpqv RECAP Video Coll.",
- "recap$qx"=>"ReCAP - rcpqx RECAP Broadcast Ctr",
- "recap$xc"=>"ReCAP - rcpxc RECAP Cotsen Lib.",
- "recap$xg"=>"ReCAP - rcpxg RECAP Graphic Arts",
- "recap$xm"=>"ReCAP - rcpxm RECAP Manuscripts",
- "recap$xn"=>"ReCAP - rcpxn RECAP Numismatics",
- "recap$xp"=>"ReCAP - rcpxp RECAP Historic Maps",
- "recap$xr"=>"ReCAP - rcpxr RECAP Rare Books",
- "recap$xw"=>"ReCAP - rcpxw RECAP Western Amer",
- "recap$xx"=>"ReCAP - rcpxx RECAP Special",
- "recap$cat"=>"ReCAP - RECAP Cataloging",
- "recap$circ"=>"ReCAP - ReCAP Circ",
- "recap$UNASSIGNED"=>"ReCAP - UNASSIGNED location",
- "resshare$bdirect"=>"Resource Sharing - Borrow Direct",
- "resshare$htcsc"=>"Resource Sharing - htcsc ReCAP Shared Coll.",
- "resshare$circ"=>"Resource Sharing - ILL Circ",
- "resshare$UNASSIGNED"=>"Resource Sharing - UNASSIGNED location",
+  "Rare Books and Special Collections - Rare Books and Special Collections - numrf Rare Bks: Numis.Ref",
+ "rare$pb"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - pb Rare Books: Prin.Boro.",
+ "rare$ptt"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - ptt Rare Books: Patterson",
+ "rare$cat"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - Rare Books Cataloging",
+ "rare$circ"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - Rare Circ",
+ "rare$rht"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - rht Rare Books: Taylor",
+ "rare$thx"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - thx Rare Books: Theatre",
+ "rare$thxr"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - thxr Rare Books: Theat. R",
+ "rare$UNASSIGNED"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - UNASSIGNED location",
+ "rare$vrg"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - vrg Rare Books: Morgan",
+ "rare$wa"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - wa Rare Books: W. Amer.",
+ "rare$warf"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - warf W. Amer.: Ref",
+ "rare$whs"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - whs Rare Books: Scheide",
+ "rare$wit"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - wit Rare Books: Withersp.",
+ "rare$w"=>
+  "Rare Books and Special Collections - Rare Books and Special Collections - w Rare Books: Pierson",
+ "recap$gp"=>"ReCAP - ReCAP - rcpgp RECAP Gov Docs",
+ "recap$jq"=>"ReCAP - ReCAP - rcpjq RECAP JSTOR Rest",
+ "recap$pa"=>"ReCAP - ReCAP - rcppa RECAP",
+ "recap$pb"=>"ReCAP - ReCAP - rcppb RECAP Firestone Use",
+ "recap$pe"=>"ReCAP - ReCAP - rcppe RECAP Restricted",
+ "recap$pf"=>"ReCAP - ReCAP - rcppf RECAP Microforms",
+ "recap$pg"=>"ReCAP - ReCAP - rcppg RECAP RBSC",
+ "recap$ph"=>"ReCAP - ReCAP - rcpph RECAP Mudd Lib.",
+ "recap$pj"=>"ReCAP - ReCAP - rcppj RECAP Marq. Lib.",
+ "recap$pk"=>"ReCAP - ReCAP - rcppk RECAP Music Lib.",
+ "recap$pl"=>"ReCAP - ReCAP - rcppl RECAP East Asian",
+ "recap$pm"=>"ReCAP - ReCAP - rcppm RECAP Stokes Lib",
+ "recap$pn"=>"ReCAP - ReCAP - rcppn RECAP Lewis Library",
+ "recap$pq"=>"ReCAP - ReCAP - rcppq RECAP PlasmaPhysics",
+ "recap$ps"=>"ReCAP - ReCAP - rcpps RECAP Lewis Rare",
+ "recap$pt"=>"ReCAP - ReCAP - rcppt RECAP Tech Reports",
+ "recap$pw"=>"ReCAP - ReCAP - rcppw RECAP Architecture",
+ "recap$pz"=>"ReCAP - ReCAP - rcppz RECAP Marquand Rare",
+ "recap$qb"=>"ReCAP - ReCAP - rcpqb RECAP NoEDD",
+ "recap$qk"=>"ReCAP - ReCAP - rcpqk RECAP Music Lib.",
+ "recap$ql"=>"ReCAP - ReCAP - rcpql RECAP EA Microforms",
+ "recap$qv"=>"ReCAP - ReCAP - rcpqv RECAP Video Coll.",
+ "recap$qx"=>"ReCAP - ReCAP - rcpqx RECAP Broadcast Ctr",
+ "recap$xc"=>"ReCAP - ReCAP - rcpxc RECAP Cotsen Lib.",
+ "recap$xg"=>"ReCAP - ReCAP - rcpxg RECAP Graphic Arts",
+ "recap$xm"=>"ReCAP - ReCAP - rcpxm RECAP Manuscripts",
+ "recap$xn"=>"ReCAP - ReCAP - rcpxn RECAP Numismatics",
+ "recap$xp"=>"ReCAP - ReCAP - rcpxp RECAP Historic Maps",
+ "recap$xr"=>"ReCAP - ReCAP - rcpxr RECAP Rare Books",
+ "recap$xw"=>"ReCAP - ReCAP - rcpxw RECAP Western Amer",
+ "recap$xx"=>"ReCAP - ReCAP - rcpxx RECAP Special",
+ "recap$cat"=>"ReCAP - ReCAP - RECAP Cataloging",
+ "recap$circ"=>"ReCAP - ReCAP - ReCAP Circ",
+ "recap$UNASSIGNED"=>"ReCAP - ReCAP - UNASSIGNED location",
+ "resshare$bdirect"=>"Resource Sharing - Resource Sharing - Borrow Direct",
+ "resshare$htcsc"=>
+  "Resource Sharing - Resource Sharing - htcsc ReCAP Shared Coll.",
+ "resshare$circ"=>"Resource Sharing - Resource Sharing - ILL Circ",
+ "resshare$UNASSIGNED"=>
+  "Resource Sharing - Resource Sharing - UNASSIGNED location",
  "RES_SHARE$OUT_RS_REQ"=>
-  "Resource Sharing Library - Borrowing Resource Sharing Requests",
+  "Resource Sharing Library - Resource Sharing Library - Borrowing Resource Sharing Requests",
  "RES_SHARE$IN_RS_REQ"=>
-  "Resource Sharing Library - Lending Resource Sharing Requests",
- "stokes$ltop"=>"Stokes Library - ltoppiapr Comp.Med Stokes",
- "stokes$piapr"=>"Stokes Library - piapr D.E.Stokes Library",
- "stokes$respiapr"=>"Stokes Library - piaprr DEStokes SPR : Res",
- "stokes$spiaa"=>"Stokes Library - spiaa PIAPR: Atlases",
- "stokes$spia"=>"Stokes Library - spia Donald E. Stokes Lib",
- "stokes$index"=>"Stokes Library - spiai PIAPR: Indexes",
- "stokes$spiaps"=>"Stokes Library - spiaps PIAPR: Periodicals",
- "stokes$ref"=>"Stokes Library - spiarf PIAPR: Reference",
- "stokes$spiaws"=>"Stokes Library - spiaws PIAPR: Writing Sh",
- "stokes$spir"=>"Stokes Library - spir PIAPR: Reserve",
- "stokes$spr"=>"Stokes Library - spr Donald E. Stokes Lib.",
- "stokes$mic"=>"Stokes Library - sprf PIAPR: Microforms",
- "stokes$sprps"=>"Stokes Library - sprps SPR: Periodicals",
- "stokes$cat"=>"Stokes Library - Stokes Cataloging",
- "stokes$circ"=>"Stokes Library - Stokes Circ",
- "stokes$UNASSIGNED"=>"Stokes Library - UNASSIGNED location",
- "techserv$acqord"=>"Technical Services - Acqord Orders ACQ",
- "techserv$acqper"=>"Technical Services - Acqper Periodicals ACQ",
- "techserv$acqser"=>"Technical Services - Acqser Serials ACQ",
- "techserv$cat"=>"Technical Services - cat Cataloging: Princeton",
- "techserv$dc"=>"Technical Services - dc Catalog Division",
- "techserv$acq"=>"Technical Services - Technical Services Acquisitions",
- "techserv$circ"=>"Technical Services - Tech Services Circ",
- "techserv$UNASSIGNED"=>"Technical Services - UNASSIGNED location"}
+  "Resource Sharing Library - Resource Sharing Library - Lending Resource Sharing Requests",
+ "stokes$ltop"=>"Stokes Library - Stokes Library - ltoppiapr Comp.Med Stokes",
+ "stokes$piapr"=>"Stokes Library - Stokes Library - piapr D.E.Stokes Library",
+ "stokes$respiapr"=>
+  "Stokes Library - Stokes Library - piaprr DEStokes SPR : Res",
+ "stokes$spiaa"=>"Stokes Library - Stokes Library - spiaa PIAPR: Atlases",
+ "stokes$spia"=>"Stokes Library - Stokes Library - spia Donald E. Stokes Lib",
+ "stokes$index"=>"Stokes Library - Stokes Library - spiai PIAPR: Indexes",
+ "stokes$spiaps"=>
+  "Stokes Library - Stokes Library - spiaps PIAPR: Periodicals",
+ "stokes$ref"=>"Stokes Library - Stokes Library - spiarf PIAPR: Reference",
+ "stokes$spiaws"=>"Stokes Library - Stokes Library - spiaws PIAPR: Writing Sh",
+ "stokes$spir"=>"Stokes Library - Stokes Library - spir PIAPR: Reserve",
+ "stokes$spr"=>"Stokes Library - Stokes Library - spr Donald E. Stokes Lib.",
+ "stokes$mic"=>"Stokes Library - Stokes Library - sprf PIAPR: Microforms",
+ "stokes$sprps"=>"Stokes Library - Stokes Library - sprps SPR: Periodicals",
+ "stokes$cat"=>"Stokes Library - Stokes Library - Stokes Cataloging",
+ "stokes$circ"=>"Stokes Library - Stokes Library - Stokes Circ",
+ "stokes$UNASSIGNED"=>"Stokes Library - Stokes Library - UNASSIGNED location",
+ "techserv$acqord"=>
+  "Technical Services - Technical Services - Acqord Orders ACQ",
+ "techserv$acqper"=>
+  "Technical Services - Technical Services - Acqper Periodicals ACQ",
+ "techserv$acqser"=>
+  "Technical Services - Technical Services - Acqser Serials ACQ",
+ "techserv$cat"=>
+  "Technical Services - Technical Services - cat Cataloging: Princeton",
+ "techserv$dc"=>
+  "Technical Services - Technical Services - dc Catalog Division",
+ "techserv$acq"=>
+  "Technical Services - Technical Services - Technical Services Acquisitions",
+ "techserv$circ"=>
+  "Technical Services - Technical Services - Tech Services Circ",
+ "techserv$UNASSIGNED"=>
+  "Technical Services - Technical Services - UNASSIGNED location"}

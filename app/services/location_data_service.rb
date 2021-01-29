@@ -25,7 +25,7 @@ class LocationDataService
       library_record = Locations::Library.find_by(code: library.code)
       holding_locations(library.code).each do |holding_location|
         Locations::HoldingLocation.new do |location_record|
-          location_record.label = holding_location.name
+          location_record.label = "#{library_record.label} - #{holding_location.name}"
           location_record.code = "#{library.code}$#{holding_location.code}"
           location_record.open = open_value(holding_location.type)
           location_record.library = library_record

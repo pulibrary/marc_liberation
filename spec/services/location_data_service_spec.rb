@@ -63,7 +63,7 @@ RSpec.describe LocationDataService, type: :service do
       expect(Locations::Library.count).to eq 2
       expect(Locations::HoldingLocation.count).to eq 13
       expect(library_record.label).to eq 'Main Library'
-      expect(location_record1.label).to eq 'Main Library Stacks'
+      expect(location_record1.label).to eq 'Main Library - Main Library Stacks'
       expect(location_record1.open).to be true
       expect(location_record2.open).to be false
     end
